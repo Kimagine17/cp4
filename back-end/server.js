@@ -16,12 +16,79 @@ mongoose.connect('mongodb://localhost:27017/booksy', {
     useUnifiedTopology: true
 });
 
-//All the book stuff
+//GENRE: Schema, Model, POST, GET, UPDATE, DELETE
+const genreSchema = new mongoose.Schema({
+    name: String
+});
+
+//genre model
+const Genre = mongoose.model('Genre', genreSchema);
+
+//create a genre
+app.post('/api/genres', async(req, res) => {
+    const genre = new Genre ({
+        name: req.body.name,
+    });
+    try {
+        await genre.save();
+        res.send(genre);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+});
+
+//get all the genres
+app.get('/api/genres', async(req, res) => {
+    try {
+        let genres = await Genre.find();
+        res.send(genres);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+});
+
+//update a genre
+app.put('/api/genres/:genreID', async(req, res) => {
+    try {
+        let genre = await Genre.findOne({genre: req.params.genreID});
+        if(!genre) {
+            res.send(404)
+        }
+        genre.name = req.body.name;
+        await genre.save();
+        res.send(genre);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+});
+
+//delete a genre
+app.delete('/api/genres/:genreID', async(req, res) => {
+    try {
+        let genre = await Genre.findOne({genre: req.params.genreID});
+        if(!genre) {
+            res.send(404)
+        }
+        await genre.delete();
+        res.sendStatus(200);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+});
+
+//BOOK: Schema, Model, POST, GET 
 const bookSchema = new mongoose.Schema({
+    genre: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Genre'
+    },
     name: String,
     description: String,
     photoPath: String,
-    genre: String,
 });
 //book model
 const Book = mongoose.model('Book', bookSchema);
