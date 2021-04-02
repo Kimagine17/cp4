@@ -54,7 +54,8 @@ app.put('/api/genres/:genreID', async(req, res) => {
     try {
         let genre = await Genre.findOne({genre: req.params.genreID});
         if(!genre) {
-            res.send(404)
+            res.send(404);
+            return;
         }
         genre.name = req.body.name;
         await genre.save();
@@ -80,7 +81,7 @@ app.delete('/api/genres/:genreID', async(req, res) => {
     }
 });
 
-//BOOK: Schema, Model, POST, GET 
+//BOOK: Schema, Model, POST, GET for genre, UPDATE
 const bookSchema = new mongoose.Schema({
     genre: {
         type: mongoose.Schema.ObjectId,
@@ -93,15 +94,20 @@ const bookSchema = new mongoose.Schema({
 //book model
 const Book = mongoose.model('Book', bookSchema);
 
-//Create a Book
-app.post('/api/books', async(req, res) => {
-    const book = new Book ({
-        name: req.body.name,
-        description: req.body.description,
-        photoPath: req.body.photoPath,
-        genre: req.body.genre
-    });
+//Create a Book w/ Genre
+app.post('/api/genres/:genreID/books', async(req, res) => {
     try {
+        let genre = await Genre.findOne({_id: req.params.genreID});
+        if (!genre) {
+            res.send(404);
+            return;
+        }
+        let book = new Book ({
+            genre: genre,
+            name: req.body.name,
+            description: req.body.description,
+            photoPath: req.body.photoPath,
+        });
         await book.save();
         res.send(book);
     } catch (error) {
@@ -110,11 +116,60 @@ app.post('/api/books', async(req, res) => {
     }
 });
 
-//Get the books
-app.get('/api/books', async(req, res) => {
+// //Get all the books in the database
+// app.get('/api/genres/books', async(req, res) => {
+//     try {
+//         let books = await Book.find();
+//         res.send(books);
+//     } catch (error) {
+//         console.log(error);
+//         res.sendStatus(500);
+//     }
+// });
+
+//Get all the books for a genre 
+app.get('/api/genres/:genreID/books', async(req, res) => {
     try {
-        let books = await Book.find();
+        let genre = Genre.findOne({genre: req.params.genreID});
+        if (!genre) {
+            res.send(404);
+            return;
+        }
+        let books = await Book.find({genre:genre});
         res.send(books);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+});
+
+//Update a book
+app.put('/api/genres/:genreID/books/:bookID', async(req, res) => {
+    try {
+        let book = await Book.findOne({_id: req.params.bookID, genre: req.params.genreID});
+        if(!book) {
+            res.send(404);
+        }
+        book.name = req.body.name;
+        book.description = req.body.description;
+        //photoPath = req.body.photoPath;
+        await book.save();
+        res.send(book);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+});
+
+//Delete a book
+app.delete('/api/genres/:genreID/books/:bookID', async(req, res) => {
+    try {
+        let book = await Book.findOne({_id: req.params.bookID, genre: req.params.genreID});
+        if(!book) {
+            res.send(404);
+        }
+        await book.delete();
+        res.sendStatus(200);
     } catch (error) {
         console.log(error);
         res.sendStatus(500);
