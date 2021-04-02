@@ -12,9 +12,9 @@ curl -X GET localhost:3000/api/genres
 //Book Testing
 curl -X POST -d '{"name":"Get Some Grit", "description":"Learn how to have grit!", "photoPath":""}' -H 'Content-Type: application/json' localhost:3000/api/genres/6067745f1b8231192ca3ab7e/books
 curl -X GET localhost:3000/api/genres/6067745f1b8231192ca3ab7e/books
-curl -X PUT -d '{"name":"Get $ome Grit", "description":"Get gritty!"}' -H 'Content-Type: application/json' localhost:3000/api/genres/6067745f1b8231192ca3ab7e/books/6067749f1b8231192ca3ab7f
+curl -X PUT -d '{"name":"Get $ome Gritzzz", "description":"Get gritty!"}' -H 'Content-Type: application/json' localhost:3000/api/books/60679658ecbae50de44fadc7
 curl -X POST -d '{"name":"Book of Life", "description":"To be pulled out on Judgement Day", "photoPath":""}' -H 'Content-Type: application/json' localhost:3000/api/genres/6067745f1b8231192ca3ab7e/books
-curl -X DELETE localhost:3000/api/genres/6067745f1b8231192ca3ab7e/books/6067749f1b8231192ca3ab7f
+curl -X DELETE localhost:3000/api/books/60679658ecbae50de44fadc7
 
 //Person Testing
 curl -d '{"name":"Kim", "about":"Loves fantasy, 6 ft 1 in, hates sunlight"}' -H 'Content-Type: application/json' localhost:3000/api/persons
@@ -24,10 +24,10 @@ curl -X PUT -d '{"name":"KIM", "about":"Loves fantasy, 6 ft 1 in, hates sunlight
 curl -X DELETE localhost:3000/api/persons/606783048936f1321c48db9d
 
 //Review Testing
-curl -X POST -d '{"review":"Super good person. Definitely going to Heaven."}' -H 'Content-Type: application/json' localhost:3000/api/books/60678d6ba66ccf2d38ed2845/persons/60678d8ba66ccf2d38ed2847/reviews
-curl -X POST -d '{"review":"Had a bad day. Yelled at husband."}' -H 'Content-Type: application/json' localhost:3000/api/books/60678d6ba66ccf2d38ed2845/persons/60678d8ba66ccf2d38ed2847/reviews
-curl -X GET localhost:3000/api/genres/6067745f1b8231192ca3ab7e/books/60677b08e72c530b141227a1/reviews
-curl -X PUT -d '{"review":"Repented, said she was sorry. All is forgiven and forgotten."}' -H 'Content-Type: application/json' localhost:3000/api/books/60678d6ba66ccf2d38ed2845/persons/60678d8ba66ccf2d38ed2847/reviews
-curl -X GET localhost:3000/api/genres/6067745f1b8231192ca3ab7e/books/60677b08e72c530b141227a1/reviews
-curl -X DELETE localhost:3000/api/genres/6067745f1b8231192ca3ab7e/books/60677b08e72c530b141227a1/reviews/
-curl -X GET localhost:3000/api/genres/6067745f1b8231192ca3ab7e/books/60677b08e72c530b141227a1/reviews
+curl -X POST -d '{"review":"Super good person. Definitely going to Heaven."}' -H 'Content-Type: application/json' localhost:3000/api/books/60677b08e72c530b141227a1/persons/606782fc8936f1321c48db9c/reviews
+curl -X POST -d '{"review":"Had a bad day. Yelled at husband."}' -H 'Content-Type: application/json' localhost:3000/api/books/60677b08e72c530b141227a1/persons/606782fc8936f1321c48db9c/reviews
+curl -X GET localhost:3000/api/books/60677b08e72c530b141227a1/reviews
+curl -X GET localhost:3000/api/persons/606782fc8936f1321c48db9c/reviews
+curl -X PUT -d '{"review":"Repented, said she was sorry. All is forgiven and forgotten."}' -H 'Content-Type: application/json' localhost:3000/api/reviews/606792e6e0874b12e87f433c
+curl -X DELETE localhost:3000/api/reviews/
+curl -X GET localhost:3000/api/books/60677b08e72c530b141227a1/reviews

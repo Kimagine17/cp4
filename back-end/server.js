@@ -145,9 +145,9 @@ app.get('/api/genres/:genreID/books', async(req, res) => {
 });
 
 //Update a book
-app.put('/api/genres/:genreID/books/:bookID', async(req, res) => {
+app.put('/api/books/:bookID', async(req, res) => {
     try {
-        let book = await Book.findOne({_id: req.params.bookID, genre: req.params.genreID});
+        let book = await Book.findOne({_id: req.params.bookID});
         if(!book) {
             res.sendStatus(404);
             return;
@@ -164,9 +164,9 @@ app.put('/api/genres/:genreID/books/:bookID', async(req, res) => {
 });
 
 //Delete a book
-app.delete('/api/genres/:genreID/books/:bookID', async(req, res) => {
+app.delete('/api/books/:bookID', async(req, res) => {
     try {
-        let book = await Book.findOne({_id: req.params.bookID, genre: req.params.genreID});
+        let book = await Book.findOne({_id: req.params.bookID});
         if(!book) {
             res.sendStatus(404);
             return;
@@ -271,13 +271,7 @@ app.post('/api/books/:bookID/persons/:personID/reviews', async(req, res) => {
     try {
         let book = await Book.findOne({_id: req.params.bookID});
         let person = await Person.findOne({_id: req.params.personID});
-        if(!book) {
-            console.log("No book found");
-            res.sendStatus(404);
-            return;
-        }
-        if(!person) {
-            console.log("No person found");
+        if(!book || !person) {
             res.sendStatus(404);
             return;
         }
@@ -328,9 +322,9 @@ app.get('/api/persons/:personID/reviews', async(req, res) => {
 });
 
 //Update a review
-app.put('/api/books/:bookID/persons/:personID/reviews', async(req, res) => {
+app.put('/api/reviews/:reviewID', async(req, res) => {
     try {
-        let review = await Review.findOne({_id:req.params.reviewID, book: req.params.bookID});
+        let review = await Review.findOne({_id:req.params.reviewID});
         if(!review) {
             res.sendStatus(404);
             return;
