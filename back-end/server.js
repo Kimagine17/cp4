@@ -216,7 +216,7 @@ app.get('/api/persons', async(req, res) => {
 });
 
 //update a person
-app.put('/api/persos/:personID', async(req, res) => {
+app.put('/api/persons/:personID', async(req, res) => {
     try {
         let person = await Person.findOne({_id: req.params.personID});
         if(!person) {
@@ -256,25 +256,35 @@ const reviewSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'Book'
     },
+    person: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Person'
+    },
     review: String,
-    person: String
     //TO-DO: photo: String,
 });
 
 //review model
 const Review = mongoose.model('Review', reviewSchema);
 
-app.post('/api/books/:bookID/reviews', async(req, res) => {
+app.post('/api/genres/:genreID/books/:bookID/reviews', async(req, res) => {
     try {
-        let book = await Book.findOne({_id: req.params.bookID});
+        let book = await Book.findOne({_id: req.params.bookID, genre: req.params.genreID});
+        let person = await Person.findOne({_id: req.params.personID});
         if(!book) {
-            res.send(404);
+            console.log("No book found");
+            res.sendStatus(404);
+            return;
+        }
+        if(!person) {
+            console.log("No person found");
+            res.sendStatus(404);
             return;
         }
         let review = new Review ({
             book: book,
+            person: person,
             review: req.body.review,
-            person: req.body.person,
         //TO-DO: photo: String,
         });
         await review.save();
@@ -285,10 +295,10 @@ app.post('/api/books/:bookID/reviews', async(req, res) => {
     }
 });
 
-//Get the reviews
-app.get('/api/books/:bookID/reviews', async(req, res) => {
+//Get the reviews for each BOOK
+app.get('/api/genres/:genreID/books/:bookID/reviews', async(req, res) => {
     try {
-        let book = await Book.findOne({_id: req.params.bookID});
+        let book = await Book.findOne({_id: req.params.bookID, genre: req.params.genreID});
         if(!book) {
             res.send(404);
             return;
@@ -300,5 +310,39 @@ app.get('/api/books/:bookID/reviews', async(req, res) => {
         res.sendStatus(500);
     }
 });
+
+//Update a review
+app.put('/api/genres/:genreID/books/:bookID/reviews/:reviewID', async(req, res) => {
+    try {
+        let review = await Review.findOne({_id:req.params.reviewID, book: req.params.bookID, genre: req.params.genreID});
+        if(!review) {
+            res.sendStatus(404);
+            return;
+        }
+        review.review = req.body.review;
+        await review.save();
+        res.send(review);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+});
+
+//Delete a review
+app.delete('/api/genres/:genreID/books/:bookID/reviews/:reviewID', async(req, res) => {
+    try {
+        let review = await Review.findOne({_id:req.params.reviewID, book: req.params.bookID, genre: req.params.genreID});
+        if(!review) {
+            res.sendStatus(404);
+            return;
+        }
+        await review.delete();
+        res.sendStatus(200);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+});
+
 
 app.listen(3000, () => console.log('Server listening on port 3000!'));
