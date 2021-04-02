@@ -131,12 +131,14 @@ app.post('/api/genres/:genreID/books', async(req, res) => {
 //Get all the books for a genre 
 app.get('/api/genres/:genreID/books', async(req, res) => {
     try {
-        let genre = Genre.findOne({genre: req.params.genreID});
+        let genre = Genre.findOne({_id: req.params.genreID});
         if (!genre) {
-            res.send(404);
+            res.sendStatus(404);
             return;
         }
+        console.log("Past the if");
         let books = await Book.find({genre:genre});
+        console.log("Found the book");
         res.send(books);
     } catch (error) {
         console.log(error);
@@ -149,7 +151,8 @@ app.put('/api/genres/:genreID/books/:bookID', async(req, res) => {
     try {
         let book = await Book.findOne({_id: req.params.bookID, genre: req.params.genreID});
         if(!book) {
-            res.send(404);
+            res.sendStatus(404);
+            return;
         }
         book.name = req.body.name;
         book.description = req.body.description;
@@ -167,7 +170,8 @@ app.delete('/api/genres/:genreID/books/:bookID', async(req, res) => {
     try {
         let book = await Book.findOne({_id: req.params.bookID, genre: req.params.genreID});
         if(!book) {
-            res.send(404);
+            res.sendStatus(404);
+            return;
         }
         await book.delete();
         res.sendStatus(200);

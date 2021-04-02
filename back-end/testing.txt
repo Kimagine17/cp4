@@ -1,6 +1,19 @@
+//Genre Testing
 curl -d '{"name":"fantasy"}' -H 'Content-Type: application/json' localhost:3000/api/genres
 curl -d '{"name":"non-fiction"}' -H 'Content-Type: application/json' localhost:3000/api/genres
 curl -X GET localhost:3000/api/genres
 curl -X PUT -d '{"name":"self-help"}' -H 'Content-Type: application/json' localhost:3000/api/genres/60676d7fbf9cbe1f2c27f07d
 curl -X GET localhost:3000/api/genres
 curl -X DELETE localhost:3000/api/genres/60676d8cbf9cbe1f2c27f07e
+curl -X GET localhost:3000/api/genres
+curl -d '{"name":"self-help"}' -H 'Content-Type: application/json' localhost:3000/api/genres
+curl -X GET localhost:3000/api/genres
+
+//Book Testing
+curl -X POST -d '{"name":"Get Some Grit", "description":"Learn how to have grit!", "photoPath":""}' -H 'Content-Type: application/json' localhost:3000/api/genres/6067745f1b8231192ca3ab7e/books
+curl -X GET localhost:3000/api/genres/6067745f1b8231192ca3ab7e/books
+curl -X PUT -d '{"name":"Get $ome Grit", "description":"Get gritty!"}' -H 'Content-Type: application/json' localhost:3000/api/genres/6067745f1b8231192ca3ab7e/books/6067749f1b8231192ca3ab7f
+curl -X POST -d '{"name":"Book of Life", "description":"To be pulled out on Judgement Day", "photoPath":""}' -H 'Content-Type: application/json' localhost:3000/api/genres/6067745f1b8231192ca3ab7e/books
+curl -X DELETE localhost:3000/api/genres/6067745f1b8231192ca3ab7e/books/6067749f1b8231192ca3ab7f
+
+
