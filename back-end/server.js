@@ -89,15 +89,20 @@ app.post('/api/books/:bookID/reviews', async(req, res) => {
     }
 });
 
-//Get the books
-// app.get('/api/books', async(req, res) => {
-//     try {
-//         let books = await Book.find();
-//         res.send(books);
-//     } catch (error) {
-//         console.log(error);
-//         res.sendStatus(500);
-//     }
-// });
+//Get the reviews
+app.get('/api/books/:bookID/reviews', async(req, res) => {
+    try {
+        let book = await Book.findOne({_id: req.params.bookID});
+        if(!book) {
+            res.send(404);
+            return;
+        }
+        let reviews = await Review.find({book:book});
+        res.send(reviews);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+});
 
 app.listen(3000, () => console.log('Server listening on port 3000!'));
