@@ -131,14 +131,12 @@ app.post('/api/genres/:genreID/books', async(req, res) => {
 //Get all the books for a genre 
 app.get('/api/genres/:genreID/books', async(req, res) => {
     try {
-        let genre = Genre.findOne({_id: req.params.genreID});
+        let genre = await Genre.findOne({_id: req.params.genreID});
         if (!genre) {
             res.sendStatus(404);
             return;
         }
-        console.log("Past the if");
         let books = await Book.find({genre:genre});
-        console.log("Found the book");
         res.send(books);
     } catch (error) {
         console.log(error);
@@ -180,6 +178,77 @@ app.delete('/api/genres/:genreID/books/:bookID', async(req, res) => {
         res.sendStatus(500);
     }
 });
+
+//PERSON: Schema, Model, POST, GET, UPDATE, DELETE
+const personSchema = new mongoose.Schema({
+    name: String,
+    about: String,
+    //photoPath: String,
+});
+
+//person model
+const Person = mongoose.model('Person', personSchema);
+
+//create a person
+app.post('/api/persons', async(req, res) => {
+    const person = new Person ({
+        name: req.body.name,
+        about: req.body.about,
+    });
+    try {
+        await person.save();
+        res.send(person);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+});
+
+//get all the persons
+app.get('/api/persons', async(req, res) => {
+    try {
+        let persons = await Person.find();
+        res.send(persons);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+});
+
+//update a person
+app.put('/api/persos/:personID', async(req, res) => {
+    try {
+        let person = await Person.findOne({_id: req.params.personID});
+        if(!person) {
+            res.sendStatus(404);
+            return;
+        }
+        person.name = req.body.name;
+        person.about = req.body.about;
+        await person.save();
+        res.send(person);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+});
+
+//delete a person
+app.delete('/api/persons/:personID', async(req, res) => {
+    try {
+        let person = await Person.findOne({_id: req.params.personID});
+        if(!person) {
+            res.sendStatus(404);
+            return;
+        }
+        await person.delete();
+        res.sendStatus(200);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+});
+
 
 //All the review stuff
 const reviewSchema = new mongoose.Schema({

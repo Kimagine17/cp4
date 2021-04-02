@@ -16,4 +16,5 @@ curl -X PUT -d '{"name":"Get $ome Grit", "description":"Get gritty!"}' -H 'Conte
 curl -X POST -d '{"name":"Book of Life", "description":"To be pulled out on Judgement Day", "photoPath":""}' -H 'Content-Type: application/json' localhost:3000/api/genres/6067745f1b8231192ca3ab7e/books
 curl -X DELETE localhost:3000/api/genres/6067745f1b8231192ca3ab7e/books/6067749f1b8231192ca3ab7f
 
-
+//Person Testing
+curl -d '{"name":"Kim", "about":"Loves fantasy, 6 ft 1 in, hates sunlight"}' -H 'Content-Type: application/json' localhost:3000/api/persons
