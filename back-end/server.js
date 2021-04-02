@@ -296,11 +296,11 @@ app.post('/api/books/:bookID/persons/:personID/reviews', async(req, res) => {
 });
 
 //Get the reviews for each BOOK
-app.get('/api/genres/:genreID/books/:bookID/reviews', async(req, res) => {
+app.get('/api/books/:bookID/reviews', async(req, res) => {
     try {
-        let book = await Book.findOne({_id: req.params.bookID, genre: req.params.genreID});
+        let book = await Book.findOne({_id: req.params.bookID});
         if(!book) {
-            res.send(404);
+            res.sendStatus(404);
             return;
         }
         let reviews = await Review.find({book:book});
@@ -311,10 +311,26 @@ app.get('/api/genres/:genreID/books/:bookID/reviews', async(req, res) => {
     }
 });
 
-//Update a review
-app.put('/api/genres/:genreID/books/:bookID/reviews/:reviewID', async(req, res) => {
+//Get the reviews for a person
+app.get('/api/persons/:personID/reviews', async(req, res) => {
     try {
-        let review = await Review.findOne({_id:req.params.reviewID, book: req.params.bookID, genre: req.params.genreID});
+        let person = await Person.findOne({_id: req.params.personID});
+        if(!person) {
+            res.sendStatus(404);
+            return;
+        }
+        let reviews = await Review.find({person:person});
+        res.send(reviews);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+});
+
+//Update a review
+app.put('/api/books/:bookID/persons/:personID/reviews', async(req, res) => {
+    try {
+        let review = await Review.findOne({_id:req.params.reviewID, book: req.params.bookID});
         if(!review) {
             res.sendStatus(404);
             return;
@@ -329,9 +345,9 @@ app.put('/api/genres/:genreID/books/:bookID/reviews/:reviewID', async(req, res) 
 });
 
 //Delete a review
-app.delete('/api/genres/:genreID/books/:bookID/reviews/:reviewID', async(req, res) => {
+app.delete('/api/reviews/:reviewID', async(req, res) => {
     try {
-        let review = await Review.findOne({_id:req.params.reviewID, book: req.params.bookID, genre: req.params.genreID});
+        let review = await Review.findOne({_id:req.params.reviewID});
         if(!review) {
             res.sendStatus(404);
             return;
