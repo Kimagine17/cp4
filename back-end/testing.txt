@@ -1,0 +1,6 @@
+curl -d '{"name":"fantasy"}' -H 'Content-Type: application/json' localhost:3000/api/genres
+curl -d '{"name":"non-fiction"}' -H 'Content-Type: application/json' localhost:3000/api/genres
+curl -X GET localhost:3000/api/genres
+curl -X PUT -d '{"name":"self-help"}' -H 'Content-Type: application/json' localhost:3000/api/genres/60676d7fbf9cbe1f2c27f07d
+curl -X GET localhost:3000/api/genres
+curl -X DELETE localhost:3000/api/genres/60676d8cbf9cbe1f2c27f07e
