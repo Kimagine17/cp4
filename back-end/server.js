@@ -100,7 +100,7 @@ app.post('/api/genres/:genreID/books', async(req, res) => {
     try {
         let genre = await Genre.findOne({_id: req.params.genreID});
         if (!genre) {
-            res.send(404);
+            res.sendStatus(404);
             return;
         }
         let book = new Book ({
@@ -117,16 +117,16 @@ app.post('/api/genres/:genreID/books', async(req, res) => {
     }
 });
 
-// //Get all the books in the database
-// app.get('/api/genres/books', async(req, res) => {
-//     try {
-//         let books = await Book.find();
-//         res.send(books);
-//     } catch (error) {
-//         console.log(error);
-//         res.sendStatus(500);
-//     }
-// });
+//Get all the books in the database
+app.get('/api/books', async(req, res) => {
+    try {
+        let books = await Book.find();
+        res.send(books);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+});
 
 //Get all the books for a genre 
 app.get('/api/genres/:genreID/books', async(req, res) => {
@@ -267,9 +267,9 @@ const reviewSchema = new mongoose.Schema({
 //review model
 const Review = mongoose.model('Review', reviewSchema);
 
-app.post('/api/genres/:genreID/books/:bookID/reviews', async(req, res) => {
+app.post('/api/books/:bookID/persons/:personID/reviews', async(req, res) => {
     try {
-        let book = await Book.findOne({_id: req.params.bookID, genre: req.params.genreID});
+        let book = await Book.findOne({_id: req.params.bookID});
         let person = await Person.findOne({_id: req.params.personID});
         if(!book) {
             console.log("No book found");
