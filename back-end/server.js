@@ -52,9 +52,9 @@ app.get('/api/genres', async(req, res) => {
 //update a genre
 app.put('/api/genres/:genreID', async(req, res) => {
     try {
-        let genre = await Genre.findOne({genre: req.params.genreID});
+        let genre = await Genre.findOne({_id: req.params.genreID});
         if(!genre) {
-            res.send(404);
+            res.sendStatus(404);
             return;
         }
         genre.name = req.body.name;
@@ -69,9 +69,10 @@ app.put('/api/genres/:genreID', async(req, res) => {
 //delete a genre
 app.delete('/api/genres/:genreID', async(req, res) => {
     try {
-        let genre = await Genre.findOne({genre: req.params.genreID});
+        let genre = await Genre.findOne({_id: req.params.genreID});
         if(!genre) {
-            res.send(404)
+            res.sendStatus(404);
+            return;
         }
         await genre.delete();
         res.sendStatus(200);
