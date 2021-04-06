@@ -293,7 +293,6 @@ app.post('/api/books/:bookID/persons/:personID/reviews', async(req, res) => {
 app.get('/api/reviews', async(req, res) => {
     try {
         let reviews = await Review.find();
-        console.log("called api/reviews");
         res.send(reviews);
     } catch (error) {
         console.log(error);

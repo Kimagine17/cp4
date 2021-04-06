@@ -12,6 +12,7 @@
                         <multiselect label="name" v-model="book" :options="books"></multiselect>
                         <p>Who's writing the review?</p>
                         <multiselect track-by="id" label="name" v-model="person" :options="users"></multiselect>
+                        <p>{{person}}</p>
                         <p>Write your review!</p>
                         <input v-model="review" placeholder="review">
                         <button @click="upload(book, person)">Upload</button>
@@ -30,14 +31,12 @@
                     <div class="form">
                         <p>Choose a Review:</p>
                         <multiselect label="name" v-model="findItem" :options="allReviews"></multiselect>
+                        <p>You selected:{{findItem}}</p>
                     </div>
                     <div class="editing">
                         <div class="upload" v-if="findItem">
-                            <p>Change Name:</p>
-                            <input v-model="findItem.name">
-                            <p></p>
-                            <p>Change About:</p>
-                            <input v-model="findItem.about">
+                            <p>Change Review:</p>
+                            <input v-model="findItem.review">
                             <p></p>
                         </div><!--upload-->
                         <div class="actions" v-if="findItem">
@@ -72,6 +71,7 @@ export default {
     created() {
         this.getBooks();
         this.getUsers();
+        this.getAllReviews();
     },
     methods: {
         fileChanged(event) {
@@ -121,7 +121,7 @@ export default {
         },
         async deleteItem(item) {
             try {
-                await axios.delete("/api/persons/" + item._id);
+                await axios.delete("/api/reviews/" + item._id);
                 this.findItem = null;
                 this.getItems();
                 return true;
@@ -131,9 +131,8 @@ export default {
         },  
         async editItem(item) {
             try {
-                await axios.put("/api/persons/" + item._id, {
-                name: this.findItem.name,
-                about: this.findItem.about,
+                await axios.put("/api/reviews/" + item._id, {
+                    review: this.findItem.review,
                 });
                 this.findItem = null;
                 this.getItems();
