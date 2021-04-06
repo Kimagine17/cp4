@@ -3,11 +3,12 @@
   <div id="app">
     <div id="menu">
       <div class="header">
-        <router-link to="/">
-          <div class="header-item">
-            <img src="./assets/Booksy.png">
-          </div> <!--header-item-->
-        </router-link>
+        <div class="header-logo">  
+          <router-link to="/">
+            <img src="./assets/Booksy.png" width=100%;>
+          </router-link>
+        </div> <!--header-item-->
+        
         <router-link to="/">
           <div class="header-item">
             <p>Home</p>
@@ -29,9 +30,9 @@
           </div> <!--header-item-->
         </router-link>
 
-        <div class="title">
+        <!-- <div class="title">
           <h1>BOOKSY</h1>
-        </div> <!--title-->
+        </div> title -->
     </div> <!--header-->
     </div><!-- menu -->
     <div class="content">
@@ -64,6 +65,46 @@
   box-sizing: border-box;
 }
 
+.main-container {
+  /* background-color: red; */
+  height: 100%;
+  /* min-height: 100vh; will cover the 100% of viewport */
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 150px; /* height of your footer */
+  width: 100%;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+}
+
+#menu {
+  /* display: flex; */
+  width: 100%;
+  background-color: #062d62;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+}
+
+.header-logo {
+  color: antiquewhite;
+  width: 20%;
+}
+
+.header-item {
+  color: antiquewhite;
+  width: 20%;
+  padding: 5%;
+  background-color: red;
+  text-decoration: none;
+}
+
 .footer-container {
   background-color: #062d62;
   position: absolute;
@@ -91,28 +132,25 @@
     padding: 0% 5% 0% 1%;
     color: white;
 }
+
 .main-container {
-  background-color: red;
-  min-height: 100vh; /* will cover the 100% of viewport */
-  overflow: hidden;
-  display: block;
+  /* background-color: red; */
+  height: 100%;
+  /* min-height: 100vh; will cover the 100% of viewport */
+  /* overflow: hidden;
+  display: block; */
   position: relative;
   padding-bottom: 150px; /* height of your footer */
   width: 100%;
 }
 
-body {
-  width: 100%;
-}
-
-#menu {
+/* #menu {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-column-gap: 5px;
   grid-template-areas: "none brand side";
   margin-bottom: 50px;
-}
-
+} */
 
 @media only screen and (min-width: 750px) {
     /* .footer-items {
