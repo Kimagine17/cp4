@@ -7,12 +7,12 @@
     </div>
     <div class="add">
       <div class="form">
-        <input v-model="genre" placeholder="Genre">
+        <input v-model="name" placeholder="Genre">
         <p></p>
         <button @click="uploadgenre">Upload</button>
       </div>
     </div>
-    <div class="heading">
+    <!-- <div class="heading">
       <h2>Edit/Delete a Genre</h2>
     </div>
     <div class="edit">
@@ -34,7 +34,7 @@
         <button @click="deleteItem(findItem)">Delete</button>
         <button @click="editItem(findItem)">Edit</button>
       </div>
-    </div>
+    </div> -->
     
     <!-- <div class="heading">
       <div class="circle">1</div>
@@ -87,7 +87,7 @@ export default {
   name: 'Admin',
   data() {
     return {
-      genre: "",
+      name: "",
       title: "",
       description: "",
       file: null,
@@ -100,83 +100,86 @@ export default {
       findItem: null,
     }
   },
-  computed: {
-    suggestions() {
-      let items = this.items.filter(item => item.title.toLowerCase().startsWith(this.findTitle.toLowerCase()));
-      return items.sort((a, b) => a.title > b.title);
-    }
-  },
-  created() {
-    this.getItems();
-  },
+  // computed: {
+  //   suggestions() {
+  //     let items = this.items.filter(item => item.title.toLowerCase().startsWith(this.findTitle.toLowerCase()));
+  //     return items.sort((a, b) => a.title > b.title);
+  //   }
+  // },
+  // created() {
+  //   this.getItems();
+  // },
   methods: {
     async uploadgenre() {
       try {
-        let r1 = await axios.post('/api/genres/', {
-          name: this.genre,
+        let r1 = await axios.post('/api/genres', {
+          name: this.name,
         });
         this.addItem = r1.data;
+        this.name = "";
       } catch (error) {
-        //console.log("Problem");
+        console.log(error);
       }
     },
-    fileChanged(event) {
-      this.file = event.target.files[0]
-    },
-    async uploadbook() {
-      try {
-        const formData = new FormData();
-        formData.append('photo', this.file, this.file.name, this.file.description)
-        let r1 = await axios.post('/api/photos', formData);
-        let r2 = await axios.post('/api/genres/:genreID/books', {
-          genre: this.genre,
-          title: this.title,
-          description: this.description,
-          path: r1.data.path,
-        });
-        this.addItem = r2.data;
-      } catch (error) {
-        //console.log("Problem");
-      }
-    },
-    async getItems() {
-      try {
-        let response = await axios.get("/api/books");
-        this.items = response.data;
-        return true;
-      } catch (error) {
-        //console.log(error);
-      }
-    },
-    selectItem(item) {
-      this.findTitle = "";
-      this.findItem = item;
-    },
-    async deleteItem(item) {
-      try {
-        await axios.delete("/api/books/" + item._id);
-        this.findItem = null;
-        this.getItems();
-        return true;
-      } catch (error) {
-        //console.log(error);
-      }
-    },
-    async editItem(item) {
-      try {
-        await axios.put("/api/books/" + item._id, {
-          title: this.findItem.title,
-          description: this.findItem.description,
-        });
-        this.findItem = null;
-        this.getItems();
-        return true;
-      } catch (error) {
-        //console.log(error);
-      }
-    },
-  },
+  }
 }
+//     fileChanged(event) {
+//       this.file = event.target.files[0]
+//     },
+//     async uploadbook() {
+//       try {
+//         const formData = new FormData();
+//         formData.append('photo', this.file, this.file.name, this.file.description)
+//         let r1 = await axios.post('/api/photos', formData);
+//         let r2 = await axios.post('/api/genres/:genreID/books', {
+//           genre: this.genre,
+//           title: this.title,
+//           description: this.description,
+//           path: r1.data.path,
+//         });
+//         this.addItem = r2.data;
+//       } catch (error) {
+//         //console.log("Problem");
+//       }
+//     },
+//     async getItems() {
+//       try {
+//         let response = await axios.get("/api/books");
+//         this.items = response.data;
+//         return true;
+//       } catch (error) {
+//         //console.log(error);
+//       }
+//     },
+//     selectItem(item) {
+//       this.findTitle = "";
+//       this.findItem = item;
+//     },
+//     async deleteItem(item) {
+//       try {
+//         await axios.delete("/api/books/" + item._id);
+//         this.findItem = null;
+//         this.getItems();
+//         return true;
+//       } catch (error) {
+//         //console.log(error);
+//       }
+//     },
+//     async editItem(item) {
+//       try {
+//         await axios.put("/api/books/" + item._id, {
+//           title: this.findItem.title,
+//           description: this.findItem.description,
+//         });
+//         this.findItem = null;
+//         this.getItems();
+//         return true;
+//       } catch (error) {
+//         //console.log(error);
+//       }
+//     },
+//   },
+// }
 </script>
 
 <style scoped>
