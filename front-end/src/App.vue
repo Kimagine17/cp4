@@ -5,7 +5,7 @@
       <div class="header">
         <router-link to="/">
           <div class="header-item">
-            <img src="/images/logo.png">
+            <img src="./assets/Booksy.png">
           </div> <!--header-item-->
         </router-link>
         <router-link to="/">
@@ -65,8 +65,7 @@
 }
 
 .footer-container {
-  background-color: #dbdbdb;
-  border: solid 2px black;
+  background-color: #062d62;
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -80,31 +79,30 @@
 .footer {
     width: 100%;
     justify-content: center; 
+    display: flex;
 }
-.footer-container a {
+.footer-item a {
   text-decoration: none;
-  color: black;
+  color: white;
+  /* margin-top: auto;
+  margin-bottom: auto; */
 }
 .footer-item {
     padding: 0% 5% 0% 1%;
+    color: white;
 }
 .main-container {
-    min-height: 100vh; /* will cover the 100% of viewport */
-    overflow: hidden;
-    display: block;
-    position: relative;
-    padding-bottom: 150px; /* height of your footer */
-    width: 100%;
-}
-
-@media only screen and (min-width: 750px) {
-    .footer-items {
-        display: flex;
-    }
+  background-color: red;
+  min-height: 100vh; /* will cover the 100% of viewport */
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 150px; /* height of your footer */
+  width: 100%;
 }
 
 body {
-  margin: 50px 100px;
+  width: 100%;
 }
 
 #menu {
@@ -115,40 +113,11 @@ body {
   margin-bottom: 50px;
 }
 
-#menu a {
-  color: #B84901;
+
+@media only screen and (min-width: 750px) {
+    /* .footer-items {
+        display: flex;
+    } */
 }
 
-#brand {
-  grid-area: brand;
-  display: flex;
-  justify-content: center;
-}
-
-#brand img {
-  height: 200px;
-}
-
-#side {
-  grid-area: side;
-  display: flex;
-  justify-content: flex-end;
-}
-
-#side img {
-  width: 50px;
-}
-
-.menu-item {
-  display: flex;
-  flex-direction: column;
-}
-
-.menu-item p {
-  margin: 0px;
-}
-
-.browse {
-  margin-right: 50px;
-}
 </style>
