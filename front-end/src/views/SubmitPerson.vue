@@ -36,6 +36,7 @@
             </div>
             <div class="actions" v-if="findItem">
                 <button @click="deleteItem(findItem)">Delete</button>
+                <button @click="editItem(findItem)">Edit</button>
             </div>
         </div><!--edit-->
     </div> <!--class="s-person" -->
@@ -106,6 +107,19 @@ export default {
                 console.log(error);
             }
         },  
+        async editItem(item) {
+            try {
+                await axios.put("/api/persons/" + item._id, {
+                name: this.findItem.name,
+                about: this.findItem.about,
+                });
+                this.findItem = null;
+                this.getItems();
+                return true;
+            } catch (error) {
+                console.log(error);
+            }
+        },
     }
 }
 </script>
