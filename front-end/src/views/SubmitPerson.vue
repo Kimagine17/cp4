@@ -138,6 +138,8 @@ export default {
 <style scoped>
 .s-person {
     height:100%;
+    width: 90%;
+    margin: 20px auto;
 }
 .inputField {
     border: 2px solid #eb7f4d;

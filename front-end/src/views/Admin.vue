@@ -184,6 +184,11 @@ export default {
 </script>
 
 <style scoped>
+.admin {
+    height:100%;
+    width: 90%;
+    margin: 20px auto;
+}
 .image h2 {
   font-style: italic;
   font-size: 1em;

@@ -150,7 +150,8 @@ export default {
 <style scoped>
 .s-review {
     height:100%;
-
+    width: 90%;
+    margin: 20px auto;
 }
 .inputField-container {
     height: 100%;
