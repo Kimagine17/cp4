@@ -1,0 +1,18 @@
+Important commands:
+-npm install vue-multiselect --save
+-npm install axios
+
+Generic notes:
+-Run the above command to have the multiselect drop down
+-Review a book selecting a review shows blank in the drop down, not sure why
+-The pages are not scrolling, and are blocked by footer :( especially submit a review
+-Make the text input area for a review larger
+-Make the drop down menu take up more space so title's aren't cut off
+-Submit a book is still a menu option? I thought that was changed??
+
+Next Steps:
+-Add a genre (under admin page)
+-Add a book (under admin page)
+-Display books (home page)
+-Create book view pages :)
+-something I'm totally forgetting
