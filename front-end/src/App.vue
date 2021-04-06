@@ -52,6 +52,11 @@
       <div class="footer-item">
         <a href="https://github.com/Kimagine17/cp4/">Github</a>
       </div><!--footer-item-->
+      <div class="footer-item">
+        <router-link to="/Admin">
+          <p>Admin</p>
+        </router-link>
+      </div><!--footer-item-->
     </div> <!--footer-->
   </div> <!--footer-container-->
 

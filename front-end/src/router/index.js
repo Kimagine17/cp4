@@ -6,6 +6,7 @@ import PersonReviews from '../views/PersonReviews.vue'
 import SubmitBook from '../views/SubmitBook.vue'
 import SubmitPerson from '../views/SubmitPerson.vue'
 import SubmitReview from '../views/SubmitReview.vue'
+import Admin from '../views/Admin.vue'
 
 Vue.use(VueRouter)
 
@@ -39,6 +40,11 @@ const routes = [
     path: '/SubmitReview',
     name: 'SubmitReview',
     component: SubmitReview
+  },
+  {
+    path: '/Admin',
+    name: 'Admin',
+    component: Admin
   },
 ]
 
