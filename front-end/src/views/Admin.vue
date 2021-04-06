@@ -115,7 +115,7 @@ export default {
         let r1 = await axios.post('/api/genres/', {
           name: this.genre,
         });
-        this.addItem = r2.data;
+        this.addItem = r1.data;
       } catch (error) {
         //console.log("Problem");
       }
@@ -180,6 +180,11 @@ export default {
 </script>
 
 <style scoped>
+.admin {
+    height:100%;
+    width: 90%;
+    margin: 20px auto;
+}
 .image h2 {
   font-style: italic;
   font-size: 1em;
