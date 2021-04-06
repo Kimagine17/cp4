@@ -145,3 +145,78 @@ export default {
 }
 </script>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+
+
+<style scoped>
+
+.inputField {
+    border: 2px solid #eb7f4d;
+    background-color: antiquewhite;
+    padding: 3%;
+    margin: 3%;
+}
+
+.heading {
+    margin-bottom: 20px;
+    margin-top: 0px;
+}
+
+.heading h2 {
+    margin-top: 0px;
+    margin-left: 0px;
+}
+
+.circle {
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  padding: 8px;
+  background: #333;
+  color: #fff;
+  text-align: center;
+}
+
+/* Form */
+input,
+textarea,
+select,
+button {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1em;
+}
+
+.form {
+    margin-right: 50px;
+}
+.actions {
+    padding: 3px;
+    margin: 0px;
+}
+.action {
+    margin: 15px;
+}
+.upload p, .actions p{
+    margin: 0px;
+    margin-bottom: 5px;
+}
+
+/* Tablet Styles */
+@media only screen and (min-width: 500px) and (max-width: 999px) {  
+    /* .add,
+    .edit {
+        display: flex;
+    } */
+}
+
+/* Desktop Screen */
+@media only screen and (min-width: 1000px) {
+/*    .inputField-container {
+        display: flex;
+    } */
+    .add,
+    .edit {
+        display: flex;
+    }
+}
+
+</style>
