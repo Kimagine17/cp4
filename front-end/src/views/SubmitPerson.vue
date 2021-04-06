@@ -32,16 +32,20 @@
                             </div>
                         </div>
                     </div>
-                    <div class="upload" v-if="findItem">
-                        <input v-model="findItem.name">
-                        <p></p>
-                    <input v-model="findItem.about">
-                        <p></p>
-                    </div>
-                    <div class="actions" v-if="findItem">
-                        <button @click="deleteItem(findItem)">Delete</button>
-                        <button @click="editItem(findItem)">Edit</button>
-                    </div>
+                    <div class="editing">
+                        <div class="upload" v-if="findItem">
+                            <p>Change Name:</p>
+                            <input v-model="findItem.name">
+                            <p></p>
+                            <p>Change About:</p>
+                            <input v-model="findItem.about">
+                            <p></p>
+                        </div>
+                        <div class="actions" v-if="findItem">
+                            <button class="action" @click="editItem(findItem)">Edit</button>
+                            <button class="action" @click="deleteItem(findItem)">Delete</button>
+                        </div>
+                    </div> <!--editing-->
                 </div><!--edit-->
             </div> <!--input field-->
         </div> <!--input field-container -->
@@ -150,11 +154,6 @@ export default {
     margin-left: 0px;
 }
 
-.add,
-.edit {
-    border: 2px dashed yellow;
-}
-
 .circle {
   border-radius: 50%;
   width: 18px;
@@ -176,14 +175,27 @@ button {
 
 .form {
     margin-right: 50px;
-    border: 2px dashed red;
-
+}
+.actions {
+    padding: 3px;
+    margin: 0px;
+}
+.action {
+    margin: 15px;
+}
+.upload p, .actions p{
+    margin: 0px;
+    margin-bottom: 5px;
 }
 
 /* Suggestions */
 .suggestions {
-  width: 200px;
+  width: 100%;
   border: 1px solid #ccc;
+  margin-bottom: 15px;
+  padding: 5px;
+  padding-bottom: 0px;
+  line-height: 15px;
 }
 
 .suggestion {
@@ -191,9 +203,17 @@ button {
 }
 
 .suggestion:hover {
-  background-color: #5BDEFF;
-  color: #fff;
+  background-color: #eb7f4d;
+  color: antiquewhite;
 }
+/* Tablet Styles */
+@media only screen and (min-width: 500px) and (max-width: 999px) {  
+    .add,
+    .edit {
+        display: flex;
+    }
+}
+
 /* Desktop Screen */
 @media only screen and (min-width: 1000px) {
     .inputField-container {
@@ -204,15 +224,7 @@ button {
         display: flex;
     }
 }
-/* Tablet Styles */
-@media only screen and (min-width: 401) and (max-width: 999px) {  
-    .add,
-    .edit {
-        display: flex;
-            border: 2px dashed red;
 
-    }
-}
 
 
 </style>
