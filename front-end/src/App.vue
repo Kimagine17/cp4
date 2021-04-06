@@ -5,7 +5,7 @@
       <div class="header">
         <div class="header-logo">  
           <router-link to="/">
-            <img src="./assets/Booksy (2).png" width=100%; vertical-align=middle;>
+            <img src="./assets/Booksy (2).png" width=100%>
           </router-link>
         </div> <!--header-logo-->
         <div class="header-items"> 
@@ -15,16 +15,25 @@
             </router-link>
           </div> <!--header-item-->
           <div class="header-item">
+            <router-link to="/SubmitBook">
+              <p>Submit a Book</p>
+            </router-link>
+          </div> <!--header-item-->
+          <div class="header-item">
             <router-link to="/SubmitReview">
               <p>Review a Book</p>
             </router-link>
           </div> <!--header-item-->
           <div class="header-item">
             <router-link to="/SubmitPerson">
-              <p>Create User</p>
+              <p>Create a Person</p>
             </router-link>
           </div> <!--header-item-->
         </div> <!--header-items-->
+
+        <!-- <div class="title">
+          <h1>BOOKSY</h1>
+        </div> title -->
     </div> <!--header-->
     </div><!-- menu -->
     <div class="content">
@@ -35,21 +44,17 @@
   <div class="footer-container">
     <div class="footer">
       <div class="footer-item">
-        <router-link to="/Admin">
-          <p>Admin</p>
-        </router-link>
+        <p>Created by Hannah K. Nelson and Kimberly I. McKinnon!</p>
+      </div><!--footer-item-->
+      <div class="footer-item">
+        <p>Contact us at kimberlite17@gmail.com or hknelson@gmail.com</p>
       </div><!--footer-item-->
       <div class="footer-item">
         <a href="https://github.com/Kimagine17/cp4/">Github</a>
       </div><!--footer-item-->
-      <div class="footer-item">
-        <p>Contact us at kimberlite17@gmail.com</p>
-      </div><!--footer-item-->
-      <div class="footer-item">
-        <p>Created by Hannah K. Nelson and Kimberly I. McKinnon!</p>
-      </div><!--footer-item-->
     </div> <!--footer-->
   </div> <!--footer-container-->
+
 </div> <!--main-container-->
 </template>
 
@@ -100,16 +105,16 @@ body {
 }
 
 .header-logo {
-  width: 10%;
-  margin: auto auto auto 2%;
+  color: antiquewhite;
+  width: 15%;
 }
 
 .header-items {
   justify-content: flex-end;
   font-size: 1.3em;
   width: 100%;
-  margin: 0% 4% 0% 0%;
-
+  /* background-color: yellow; */
+  display: flex;
 }
 
 .header-item {
@@ -119,8 +124,16 @@ body {
   text-decoration: none;
 }
 
+a:hover {
+  color: #eb7f4d;
+}
+
 :visited {
   color: antiquewhite;
+}
+
+.router-link-exact-active {
+  color: rgb(235, 127, 77);
 }
 
 .footer-container {
@@ -138,36 +151,42 @@ body {
 .footer {
     width: 100%;
     justify-content: center; 
+    display: flex;
 }
-
-.footer-item, .footer-item a {
-    margin: auto 4% auto 4%;
+.footer-item a {
+  text-decoration: none;
+  color: white;
+  /* margin-top: auto;
+  margin-bottom: auto; */
+}
+.footer-item {
+    padding: 0% 5% 0% 1%;
     color: white;
-    text-decoration: none;
-    justify-content: center;
 }
 
-.router-link-exact-active {
-  color: #eb7f4d;
+.main-container {
+  /* background-color: red; */
+  height: 100%;
+  /* min-height: 100vh; will cover the 100% of viewport */
+  /* overflow: hidden;
+  display: block; */
+  position: relative;
+  padding-bottom: 150px; /* height of your footer */
+  width: 100%;
 }
 
-a:hover {
-  color: #eb7f4d;
-}
+/* #menu {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 5px;
+  grid-template-areas: "none brand side";
+  margin-bottom: 50px;
+} */
 
 @media only screen and (min-width: 750px) {
-    .header-items {
-      justify-content: flex-end;
-      font-size: 1.3em;
-      width: 100%;
-      /* background-color: yellow; */
-      display: flex;
-      margin: 0% 4% 0% 0%;
-    }
-    
-    .footer {
-      display: flex;
-    }
+    /* .footer-items {
+        display: flex;
+    } */
 }
 
 </style>
