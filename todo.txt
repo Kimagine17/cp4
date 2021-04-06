@@ -16,3 +16,7 @@ Next Steps:
 -Display books (home page)
 -Create book view pages :)
 -something I'm totally forgetting
+
+
+To Do Kim:
+npm intall multer
