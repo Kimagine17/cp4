@@ -1,7 +1,7 @@
 <template>
 <div class = "admin">
   <h1>Admin Page</h1>
-    <!--Genre-->
+    <!-- Genre -->
     <div class="heading">
       <div class="circle">1</div>
       <h2>Add a Genre</h2>
@@ -12,9 +12,9 @@
         <p></p>
         <button @click="uploadgenre">Upload</button>
       </div>
-      <div class="upload" v-if="addGenre">
-        <h2>{{addItem.genre}}</h2>
-      </div>
+      <!-- <div class="upload" v-if="addGenre">
+        <h2>{{addGenre.genre}}</h2>
+      </div> -->
     </div>
     <div class="heading">
       <div class="circle">2</div>
@@ -22,24 +22,26 @@
     </div>
     <div class="edit">
       <div class="form">
-        <input v-model="findGenre" placeholder="Search">
-        <div class="suggestions" v-if="suggestions1.length > 0">
-          <div class="suggestion" v-for="s in suggestions1" :key="s.id" @click="selectGenres(s)">{{s.selectGenres}}
+        <input v-model="findTitle" placeholder="Search">
+        <div class="suggestions" v-if="suggestions.length > 0">
+          <div class="suggestion" v-for="s in suggestions" :key="s.id" @click="selectItem(s)">{{s.title}}
           </div>
         </div>
       </div>
-      <div class="upload" v-if="findGenre">
-        <input v-model="findGenre.genre">
+      <div class="upload" v-if="findItem">
+        <input v-model="findItem.title">
         <p></p>
+        <input v-model="findItem.description">
+        <p></p>
+        <img :src="findItem.path" />
       </div>
-      <div class="actions" v-if="findGenre">
-        <button @click="deleteGenre(findGenre)">Delete</button>
-        <button @click="editGenre(findGenre)">Edit</button>
+      <div class="actions" v-if="findItem">
+        <button @click="deleteItem(findItem)">Delete</button>
+        <button @click="editItem(findItem)">Edit</button>
       </div>
     </div>
     
-    <!--Book-->
-    <div class="heading">
+    <!-- <div class="heading">
       <div class="circle">1</div>
       <h2>Add a Book</h2>
     </div>
@@ -53,8 +55,8 @@
         <button @click="uploadbook">Upload</button>
       </div>
       <div class="upload" v-if="addItem">
-        <h2>{{addBook.title}}</h2>
-        <img :src="addBook.path" />
+        <h2>{{addItem.title}}</h2>
+        <img :src="addItem.path" />
       </div>
     </div>
     <div class="heading">
@@ -64,23 +66,23 @@
     <div class="edit">
       <div class="form">
         <input v-model="findTitle" placeholder="Search">
-        <div class="suggestions" v-if="suggestions2.length > 0">
-          <div class="suggestion" v-for="s in suggestions2" :key="s.id" @click="selectBook(s)">{{s.title}}
+        <div class="suggestions" v-if="suggestions.length > 0">
+          <div class="suggestion" v-for="s in suggestions" :key="s.id" @click="selectItem(s)">{{s.title}}
           </div>
         </div>
       </div>
-      <div class="upload" v-if="findBook">
-        <input v-model="findBook.title">
+      <div class="upload" v-if="findItem">
+        <input v-model="findItem.title">
         <p></p>
-        <input v-model="findBook.description">
+        <input v-model="findItem.description">
         <p></p>
-        <img :src="findBook.path" />
+        <img :src="findItem.path" />
       </div>
-      <div class="actions" v-if="findBook">
-        <button @click="deleteBook(findBook)">Delete</button>
-        <button @click="editBook(findBook)">Edit</button>
+      <div class="actions" v-if="findItem">
+        <button @click="deleteItem(findItem)">Delete</button>
+        <button @click="editItem(findItem)">Edit</button>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -94,68 +96,54 @@ export default {
       title: "",
       description: "",
       file: null,
-      addGenre: null,
-      addBook: null,
+      addItem: null,
       genres: [],
-      books: [],
-      findGenre: "",
+      items: [],
+      findGenre: null,
       findTitle: "",
-      findBook: null,
+      findItem: null,
     }
   },
   computed: {
-    suggestions1() {
-      let genres = this.genres.filter(genre => genre.genre.toLowerCase().startsWith(this.findGenre.toLowerCase()));
-      return genres.sort((a, b) => a.genre > b.genre);
-    },
-    suggestions2() {
+    suggestions() {
       let items = this.items.filter(item => item.title.toLowerCase().startsWith(this.findTitle.toLowerCase()));
       return items.sort((a, b) => a.title > b.title);
     }
   },
   created() {
-    this.getBooks();
-    this.getGenres();
+    this.getItems();
   },
   methods: {
-    fileChanged(event) {
-      this.file = event.target.files[0]
-    },
     async uploadgenre() {
       try {
-        let r1 = await axios.post('/api/genres', {
-          genre: this.genre,
+        let r1 = await axios.post('/api/genres/', {
+          name: this.genre,
         });
-        this.addGenre = r1.data;
+        this.addItem = r2.data;
       } catch (error) {
         //console.log("Problem");
       }
+    },
+    fileChanged(event) {
+      this.file = event.target.files[0]
     },
     async uploadbook() {
       try {
         const formData = new FormData();
-        formData.append('photo', this.file, this.file.title, this.file.description)
-        let r1 = await axios.post('/api/books', formData);
-        let r2 = await axios.post('/api/books', {
+        formData.append('photo', this.file, this.file.name, this.file.description)
+        let r1 = await axios.post('/api/photos', formData);
+        let r2 = await axios.post('/api/genres/:genreID/books', {
+          genre: this.genre,
           title: this.title,
           description: this.description,
           path: r1.data.path,
         });
-        this.addBook = r2.data;
+        this.addItem = r2.data;
       } catch (error) {
         //console.log("Problem");
       }
     },
-    async getGenres() {
-      try {
-        let response = await axios.get("/api/genres");
-        this.items = response.data;
-        return true;
-      } catch (error) {
-        //console.log(error);
-      }
-    },
-    async getBooks() {
+    async getItems() {
       try {
         let response = await axios.get("/api/books");
         this.items = response.data;
@@ -164,53 +152,28 @@ export default {
         //console.log(error);
       }
     },
-    selectGenre(genre) {
-      this.findGenre = genre;
-    },
-    selectBook(book) {
+    selectItem(item) {
       this.findTitle = "";
-      this.findBook = book;
+      this.findItem = item;
     },
-    async deleteGenre(genre) {
+    async deleteItem(item) {
       try {
-        await axios.delete("/api/genres/" + genre._id);
-        this.findGenre = null;
-        this.getGenres();
+        await axios.delete("/api/books/" + item._id);
+        this.findItem = null;
+        this.getItems();
         return true;
       } catch (error) {
         //console.log(error);
       }
     },
-    async deleteBook(book) {
+    async editItem(item) {
       try {
-        await axios.delete("/api/books/" + book._id);
-        this.findBook = null;
-        this.getBooks();
-        return true;
-      } catch (error) {
-        //console.log(error);
-      }
-    },
-    async editGenre(genre) {
-      try {
-        await axios.put("/api/genres/" + genre._id, {
-          genre: this.findGenre.genre,
+        await axios.put("/api/books/" + item._id, {
+          title: this.findItem.title,
+          description: this.findItem.description,
         });
-        this.findGenre = null;
-        this.getGenres();
-        return true;
-      } catch (error) {
-        //console.log(error);
-      }
-    },
-    async editBook(book) {
-      try {
-        await axios.put("/api/books/" + book._id, {
-          title: this.findBook.title,
-          description: this.findBook.description,
-        });
-        this.findBook = null;
-        this.getBooks();
+        this.findItem = null;
+        this.getItems();
         return true;
       } catch (error) {
         //console.log(error);
@@ -266,7 +229,7 @@ button {
   max-width: 300px;
 }
 /* Suggestions */
-.suggestions1, .suggestions2 {
+.suggestions {
   width: 200px;
   border: 1px solid #ccc;
 }
