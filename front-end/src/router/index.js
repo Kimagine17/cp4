@@ -16,27 +16,27 @@ const routes = [
     component: Home
   },
   {
-    path: '/',
+    path: '/Book',
     name: 'Book',
     component: Book
   },
   {
-    path: '/',
+    path: '/PersonReviews',
     name: 'PersonReviews',
     component: PersonReviews
   },
   {
-    path: '/',
+    path: '/SubmitBook',
     name: 'SubmitBook',
     component: SubmitBook
   },
   {
-    path: '/',
+    path: '/SubmitPerson',
     name: 'SubmitPerson',
     component: SubmitPerson
   },
   {
-    path: '/',
+    path: '/SubmitReview',
     name: 'SubmitReview',
     component: SubmitReview
   },
