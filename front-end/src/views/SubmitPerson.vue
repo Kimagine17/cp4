@@ -24,14 +24,15 @@
             <div class="form">
                 <input v-model="findName" placeholder="Search Name">
                 <div class="suggestions" v-if="suggestions.length > 0">
-                <div class="suggestion" v-for="s in suggestions" :key="s.id" @click="selectItem(s)">{{s.title}}
-                </div>
+                    <div class="suggestion" v-for="s in suggestions" :key="s.id" @click="selectItem(s)">{{s.name}}
+                    </div>
                 </div>
             </div>
             <div class="upload" v-if="findItem">
-                <input v-model="findItem.title">
+                <input v-model="findItem.name">
                 <p></p>
-                <img :src="findItem.path" />
+               <input v-model="findItem.about">
+                <p></p>
             </div>
             <div class="actions" v-if="findItem">
                 <button @click="deleteItem(findItem)">Delete</button>
