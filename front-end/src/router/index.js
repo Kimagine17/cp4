@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Book from '../views/Book.vue'
 import PersonReviews from '../views/PersonReviews.vue'
-import SubmitBook from '../views/SubmitBook.vue'
 import SubmitPerson from '../views/SubmitPerson.vue'
 import SubmitReview from '../views/SubmitReview.vue'
 import Admin from '../views/Admin.vue'
@@ -25,11 +24,6 @@ const routes = [
     path: '/PersonReviews',
     name: 'PersonReviews',
     component: PersonReviews
-  },
-  {
-    path: '/SubmitBook',
-    name: 'SubmitBook',
-    component: SubmitBook
   },
   {
     path: '/SubmitPerson',
