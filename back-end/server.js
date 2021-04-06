@@ -289,6 +289,18 @@ app.post('/api/books/:bookID/persons/:personID/reviews', async(req, res) => {
     }
 });
 
+//Get all the reviews
+app.get('/api/reviews', async(req, res) => {
+    try {
+        let reviews = await Review.find();
+        console.log("called api/reviews");
+        res.send(reviews);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+});
+
 //Get the reviews for each BOOK
 app.get('/api/books/:bookID/reviews', async(req, res) => {
     try {

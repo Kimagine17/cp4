@@ -1,52 +1,54 @@
 <template>
-  <div class="s-review">
-    <h1>Submit a Review</h1>
-    <div class="inputField-container">
-        <div class="inputField">
-            <div class="heading">
-                <h2>Create new user:</h2>
-            </div>
-            <div class="add">
-                <div class="form">
-                    <p>Choose a book:</p>
-                    <multiselect label="name" v-model="book" :options="books"></multiselect>
-                    <!-- <multiselect track-by="id" label="name" v-model="book" :options="books"></multiselect> -->
-                    <p>Who's writing the review?</p>
-                    <multiselect track-by="id" label="name" v-model="person" :options="users"></multiselect>
-                    <p>Write your review!</p>
-                    <input v-model="review" placeholder="review">
-                    <button @click="upload(book, person)">Upload</button>
-                </div>
-                <div class="upload" v-if="addItem">
-                    <h2>{{addItem.title}}</h2>
-                    <img :src="addItem.path" />
-                </div>
-            </div>
-        </div>inputField
-        <div class="inputField">
-            <div class="heading">
-                <h2>Edit/Delete a user:</h2>
-            </div> <!--heading-->
-            <div class="edit">
-                <div class="form">
-                </div>
-                <!-- <div class="editing">
-                    <div class="upload" v-if="findItem">
-                        <p>Change Name:</p>
-                        <input v-model="findItem.name">
-                        <p></p>
-                        <p>Change About:</p>
-                        <input v-model="findItem.about">
-                        <p></p>
+    <div class="s-review">
+        <h1>All about Reviews</h1>
+        <div class="inputField-container">
+            <div class="inputField">
+                <div class="heading">
+                    <h2>Add a Review:</h2>
+                </div><!--heading-->
+                <div class="add">
+                    <div class="form">
+                        <p>Choose a book:</p>
+                        <multiselect label="name" v-model="book" :options="books"></multiselect>
+                        <p>Who's writing the review?</p>
+                        <multiselect track-by="id" label="name" v-model="person" :options="users"></multiselect>
+                        <p>Write your review!</p>
+                        <input v-model="review" placeholder="review">
+                        <button @click="upload(book, person)">Upload</button>
+                    </div><!--form-->
+                    <div class="upload" v-if="addItem">
+                        <h2>{{addItem.title}}</h2>
+                        <img :src="addItem.path" />
+                    </div><!--upload-->
+                </div><!--add-->
+            </div><!--inputField-->
+            <div class="inputField">
+                <div class="heading">
+                    <h2>Edit/Delete a Review:</h2>
+                </div> <!--heading-->
+                <div class="edit">
+                    <div class="form">
+                        <p>Choose a Review:</p>
+                        <multiselect label="name" v-model="findItem" :options="allReviews"></multiselect>
                     </div>
-                    <div class="actions" v-if="findItem">
-                        <button class="action" @click="editItem(findItem)">Edit</button>
-                        <button class="action" @click="deleteItem(findItem)">Delete</button>
-                    </div>
-                </div> editing -->
-            </div><!--edit-->
-        </div> <!--input field-->
-    </div> <!--input field-container -->  </div>
+                    <div class="editing">
+                        <div class="upload" v-if="findItem">
+                            <p>Change Name:</p>
+                            <input v-model="findItem.name">
+                            <p></p>
+                            <p>Change About:</p>
+                            <input v-model="findItem.about">
+                            <p></p>
+                        </div><!--upload-->
+                        <div class="actions" v-if="findItem">
+                            <button class="action" @click="editItem(findItem)">Edit</button>
+                            <button class="action" @click="deleteItem(findItem)">Delete</button>
+                        </div><!--actions-->
+                    </div> <!--editing-->
+                </div><!--edit-->
+            </div> <!--input field-->
+        </div> <!--input field-container -->  
+    </div><!--s-review-->
 </template>
 
 <script>
@@ -61,14 +63,12 @@ export default {
             person: null,
             books: [],
             users: [],
-            // findName: "",
+            allReviews: [],
             findItem: null,
             addItem: null,
             review: "",
         }
     },
-    // computed: {
-    // },
     created() {
         this.getBooks();
         this.getUsers();
@@ -92,15 +92,6 @@ export default {
                 console.log(error);
             }
         },
-        // async getItems() {
-        //     try {
-        //         let response = await axios.get("/api/persons");
-        //         this.items = response.data;
-        //         return true;
-        //     } catch (error) {
-        //         console.log(error);
-        //     }
-        // },
         async getBooks() {
             try {
                 let response = await axios.get("/api/books");
@@ -119,33 +110,38 @@ export default {
                 console.log(error);
             }
         },
-        // selectItem(item) {
-        //     this.findName = "";
-        //     this.findItem = item;
-        // },
-        // async deleteItem(item) {
-        //     try {
-        //         await axios.delete("/api/persons/" + item._id);
-        //         this.findItem = null;
-        //         this.getItems();
-        //         return true;
-        //     } catch (error) {
-        //         console.log(error);
-        //     }
-        // },  
-        // async editItem(item) {
-        //     try {
-        //         await axios.put("/api/persons/" + item._id, {
-        //         name: this.findItem.name,
-        //         about: this.findItem.about,
-        //         });
-        //         this.findItem = null;
-        //         this.getItems();
-        //         return true;
-        //     } catch (error) {
-        //         console.log(error);
-        //     }
-        // },
+        async getAllReviews() {
+            try {
+                let response = await axios.get("/api/reviews");
+                this.allReviews = response.data;
+                return true;
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async deleteItem(item) {
+            try {
+                await axios.delete("/api/persons/" + item._id);
+                this.findItem = null;
+                this.getItems();
+                return true;
+            } catch (error) {
+                console.log(error);
+            }
+        },  
+        async editItem(item) {
+            try {
+                await axios.put("/api/persons/" + item._id, {
+                name: this.findItem.name,
+                about: this.findItem.about,
+                });
+                this.findItem = null;
+                this.getItems();
+                return true;
+            } catch (error) {
+                console.log(error);
+            }
+        },
     }
 }
 </script>
