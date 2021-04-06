@@ -5,30 +5,31 @@
       <div class="header">
         <div class="header-logo">  
           <router-link to="/">
-            <img src="./assets/Booksy.png" width=100%;>
+            <img src="./assets/Booksy (2).png" width=100%>
           </router-link>
-        </div> <!--header-item-->
-        
-        <router-link to="/">
+        </div> <!--header-logo-->
+        <div class="header-items"> 
           <div class="header-item">
-            <p>Home</p>
+            <router-link to="/">
+              <p>Home</p>
+            </router-link>
           </div> <!--header-item-->
-        </router-link>
-        <router-link to="/SubmitBook">
           <div class="header-item">
-            <p>Submit a Book!</p>
+            <router-link to="/SubmitBook">
+              <p>Submit a Book</p>
+            </router-link>
           </div> <!--header-item-->
-        </router-link>
-        <router-link to="/SubmitReview">
           <div class="header-item">
-            <p>Review a Book!</p>
+            <router-link to="/SubmitReview">
+              <p>Review a Book</p>
+            </router-link>
           </div> <!--header-item-->
-        </router-link>
-        <router-link to="/SubmitPerson">
           <div class="header-item">
-            <p>Create a Person!</p>
+            <router-link to="/SubmitPerson">
+              <p>Create a Person</p>
+            </router-link>
           </div> <!--header-item-->
-        </router-link>
+        </div> <!--header-items-->
 
         <!-- <div class="title">
           <h1>BOOKSY</h1>
@@ -63,12 +64,18 @@
 <style>
 * {
   box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+html {
+  height: 100vh;
+  width: 100%
 }
 
 .main-container {
   /* background-color: red; */
   height: 100%;
-  /* min-height: 100vh; will cover the 100% of viewport */
+  min-height: 100vh; 
   overflow: hidden;
   display: block;
   position: relative;
@@ -81,6 +88,10 @@ body {
   width: 100%;
 }
 
+.router-link-exact-active, .header-item a {
+  text-decoration: none;
+}
+
 #menu {
   /* display: flex; */
   width: 100%;
@@ -89,20 +100,40 @@ body {
 
 .header {
   width: 100%;
+  height: 100%;
   display: flex;
 }
 
 .header-logo {
   color: antiquewhite;
-  width: 20%;
+  width: 15%;
+}
+
+.header-items {
+  justify-content: flex-end;
+  font-size: 1.3em;
+  width: 100%;
+  /* background-color: yellow; */
+  display: flex;
 }
 
 .header-item {
   color: antiquewhite;
-  width: 20%;
-  padding: 5%;
-  background-color: red;
+  padding: 2%;
+  /* background-color: red; */
   text-decoration: none;
+}
+
+a:hover {
+  color: #eb7f4d;
+}
+
+:visited {
+  color: antiquewhite;
+}
+
+.router-link-exact-active {
+  color: rgb(235, 127, 77);
 }
 
 .footer-container {
