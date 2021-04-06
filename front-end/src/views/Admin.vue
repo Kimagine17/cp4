@@ -3,7 +3,6 @@
   <h1>Admin Page</h1>
     <!-- Genre -->
     <div class="heading">
-      <div class="circle">1</div>
       <h2>Add a Genre</h2>
     </div>
     <div class="add">
@@ -12,12 +11,8 @@
         <p></p>
         <button @click="uploadgenre">Upload</button>
       </div>
-      <!-- <div class="upload" v-if="addGenre">
-        <h2>{{addGenre.genre}}</h2>
-      </div> -->
     </div>
     <div class="heading">
-      <div class="circle">2</div>
       <h2>Edit/Delete a Genre</h2>
     </div>
     <div class="edit">
@@ -96,6 +91,7 @@ export default {
       title: "",
       description: "",
       file: null,
+      addGenre: null,
       addItem: null,
       genres: [],
       items: [],
