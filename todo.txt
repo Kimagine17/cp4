@@ -1,6 +1,7 @@
 Important commands:
 -npm install vue-multiselect --save
 -npm install axios
+-npm install multer
 
 Generic notes:
 -Run the above command to have the multiselect drop down

@@ -16,11 +16,6 @@
               </router-link>
             </div> <!--header-item-->
             <div class="header-item">
-              <router-link to="/SubmitBook">
-                <p>Submit a Book</p>
-              </router-link>
-            </div> <!--header-item-->
-            <div class="header-item">
               <router-link to="/SubmitReview">
                 <p>Review a Book</p>
               </router-link>
@@ -51,10 +46,10 @@
         <a class="footer-item" href="https://github.com/Kimagine17/cp4/">Github</a>
       <!-- </div>footer-item -->
       <div class="footer-item">
-        <p>Contact us at kimberlite17@gmail.com or hknelson@gmail.com</p>
+        <p>Created by Hannah K. Nelson and Kimberly I. McKinnon</p>
       </div><!--footer-item-->
       <div class="footer-item">
-        <a href="https://github.com/Kimagine17/cp4/">Github</a>
+        <p>Contact us at kimberlite17@gmail.com or hknelson@gmail.com</p>
       </div><!--footer-item-->
     </div> <!--footer-->
   </div> <!--footer-container-->
@@ -182,7 +177,7 @@ body {
 .footer {
     width: 100%;
     justify-content: center; 
-    display: flex;
+    /* display: flex; */
 }
 .footer-item a {
   text-decoration: none;
@@ -191,7 +186,7 @@ body {
   margin-bottom: auto; */
 }
 .footer-item {
-    padding: 0% 5% 0% 1%;
+    padding: 2% 5% 1% 1%;
     color: white;
 }
 
@@ -222,7 +217,16 @@ body {
       padding-bottom: 0%;
 
     }
-    
+    .header-items {
+      justify-content: flex-end;
+      font-size: 1.3em;
+      width: 100%;
+      /* background-color: yellow; */
+      display: flex;
+      margin: 0% 4% 0% 0%;
+      padding-bottom: 0%;
+    }
+
     .header-item {
       padding: 2%;
     }
