@@ -1,44 +1,50 @@
 <template>
     <div class="s-person">
         <h1>All about users!</h1>
-        <div class="heading">
-            <h2>Create new user:</h2>
-        </div> <!--heading-->
-        <div class="add">
-            <div class="form">
-                <input v-model="name" placeholder="Name">
-                <p></p>
-                <input v-model="about" placeholder="About You">
-                <p></p>
-                <button @click="upload">Upload</button>
-            </div>
-            <div class="upload" v-if="addItem">
-                <h2>{{addItem.title}}</h2>
-                <img :src="addItem.path" />
-            </div>
-        </div>
-        <div class="heading">
-            <h2>Edit/Delete a user:</h2>
-        </div> <!--heading-->
-        <div class="edit">
-            <div class="form">
-                <input v-model="findName" placeholder="Search Name">
-                <div class="suggestions" v-if="suggestions.length > 0">
-                    <div class="suggestion" v-for="s in suggestions" :key="s.id" @click="selectItem(s)">{{s.name}}
+        <div class="inputField-container">
+            <div class="inputField">
+                <div class="heading">
+                    <h2>Create new user:</h2>
+                </div> <!--heading-->
+                <div class="add">
+                    <div class="form">
+                        <input v-model="name" placeholder="Name">
+                        <p></p>
+                        <input v-model="about" placeholder="About You">
+                        <p></p>
+                        <button @click="upload">Upload</button>
+                    </div>
+                    <div class="upload" v-if="addItem">
+                        <h2>{{addItem.title}}</h2>
+                        <img :src="addItem.path" />
                     </div>
                 </div>
-            </div>
-            <div class="upload" v-if="findItem">
-                <input v-model="findItem.name">
-                <p></p>
-               <input v-model="findItem.about">
-                <p></p>
-            </div>
-            <div class="actions" v-if="findItem">
-                <button @click="deleteItem(findItem)">Delete</button>
-                <button @click="editItem(findItem)">Edit</button>
-            </div>
-        </div><!--edit-->
+            </div><!--inputField-->
+            <div class="inputField">
+                <div class="heading">
+                    <h2>Edit/Delete a user:</h2>
+                </div> <!--heading-->
+                <div class="edit">
+                    <div class="form">
+                        <input v-model="findName" placeholder="Search Name">
+                        <div class="suggestions" v-if="suggestions.length > 0">
+                            <div class="suggestion" v-for="s in suggestions" :key="s.id" @click="selectItem(s)">{{s.name}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="upload" v-if="findItem">
+                        <input v-model="findItem.name">
+                        <p></p>
+                    <input v-model="findItem.about">
+                        <p></p>
+                    </div>
+                    <div class="actions" v-if="findItem">
+                        <button @click="deleteItem(findItem)">Delete</button>
+                        <button @click="editItem(findItem)">Edit</button>
+                    </div>
+                </div><!--edit-->
+            </div> <!--input field-->
+        </div> <!--input field-container -->
     </div> <!--class="s-person" -->
 
 </template>
@@ -123,3 +129,90 @@ export default {
     }
 }
 </script>
+
+
+<style scoped>
+
+.inputField {
+    border: 2px solid #eb7f4d;
+    background-color: antiquewhite;
+    padding: 3%;
+    margin: 3%;
+}
+
+.heading {
+    margin-bottom: 20px;
+    margin-top: 0px;
+}
+
+.heading h2 {
+    margin-top: 0px;
+    margin-left: 0px;
+}
+
+.add,
+.edit {
+    border: 2px dashed yellow;
+}
+
+.circle {
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  padding: 8px;
+  background: #333;
+  color: #fff;
+  text-align: center;
+}
+
+/* Form */
+input,
+textarea,
+select,
+button {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1em;
+}
+
+.form {
+    margin-right: 50px;
+    border: 2px dashed red;
+
+}
+
+/* Suggestions */
+.suggestions {
+  width: 200px;
+  border: 1px solid #ccc;
+}
+
+.suggestion {
+  min-height: 20px;
+}
+
+.suggestion:hover {
+  background-color: #5BDEFF;
+  color: #fff;
+}
+/* Desktop Screen */
+@media only screen and (min-width: 1000px) {
+    .inputField-container {
+        display: flex;
+    }
+    .add,
+    .edit {
+        display: flex;
+    }
+}
+/* Tablet Styles */
+@media only screen and (min-width: 401) and (max-width: 999px) {  
+    .add,
+    .edit {
+        display: flex;
+            border: 2px dashed red;
+
+    }
+}
+
+
+</style>
