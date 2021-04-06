@@ -1,46 +1,46 @@
 <template>
 <div class="main-container">
   <div class="container">
-  <div id="app">
-    <div id="menu">
-      <div class="header">
-        <!-- <div class="header-logo">   -->
-          <router-link class="header-logo" to="/">
-            <img class="image" src="./assets/Booksy (2).png">
-          </router-link>
-        <!-- </div> header-logo -->
-        <div class="header-items"> 
-          <div class="header-item">
-            <router-link to="/">
-              <p>Home</p>
+    <div id="app">
+      <div id="menu">
+        <div class="header">
+          <!-- <div class="header-logo">   -->
+            <router-link class="header-logo" to="/">
+              <img class="image" src="./assets/Booksy (2).png">
             </router-link>
-          </div> <!--header-item-->
-          <div class="header-item">
-            <router-link to="/SubmitBook">
-              <p>Submit a Book</p>
-            </router-link>
-          </div> <!--header-item-->
-          <div class="header-item">
-            <router-link to="/SubmitReview">
-              <p>Review a Book</p>
-            </router-link>
-          </div> <!--header-item-->
-          <div class="header-item">
-            <router-link to="/SubmitPerson">
-              <p>Create a Person</p>
-            </router-link>
-          </div> <!--header-item-->
-        </div> <!--header-items-->
+          <!-- </div> header-logo -->
+          <div class="header-items"> 
+            <div class="header-item">
+              <router-link to="/">
+                <p>Home</p>
+              </router-link>
+            </div> <!--header-item-->
+            <div class="header-item">
+              <router-link to="/SubmitBook">
+                <p>Submit a Book</p>
+              </router-link>
+            </div> <!--header-item-->
+            <div class="header-item">
+              <router-link to="/SubmitReview">
+                <p>Review a Book</p>
+              </router-link>
+            </div> <!--header-item-->
+            <div class="header-item">
+              <router-link to="/SubmitPerson">
+                <p>Create a Person</p>
+              </router-link>
+            </div> <!--header-item-->
+          </div> <!--header-items-->
 
-        <!-- <div class="title">
-          <h1>BOOKSY</h1>
-        </div> title -->
-    </div> <!--header-->
-    </div><!-- menu -->
-    <div class="content">
-      <router-view />
-    </div> <!-- content -->
-  </div><!-- app-->
+          <!-- <div class="title">
+            <h1>BOOKSY</h1>
+          </div> title -->
+        </div> <!--header-->
+      </div><!-- menu -->
+      <div class="content">
+        <router-view />
+      </div> <!-- content -->
+    </div><!-- app-->
   </div> <!--container-->
   <div class="footer-container">
     <div class="footer">
@@ -67,6 +67,8 @@
 
 <style>
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -80,14 +82,19 @@ html {
   width: 100%;
   height: 100%;
 }
+.content
+{
+  height: 100%;
+  background-color: red;
 
+}
 .container {
   /* background-color: red; */
   height: 100%;
   min-height: 100vh; 
-  overflow: hidden;
+  /* overflow: hidden; */
   display: block;
-  position: relative;
+  /* position: relative; */
   padding-bottom: 150px; /*height of your footer*/
   width: 100%;
 }
@@ -95,6 +102,7 @@ html {
 body {
   height: 100%;
   width: 100%;
+  background-color: pink;
 }
 
 .router-link-exact-active, .header-item a {
@@ -147,7 +155,7 @@ body {
 
 .footer-container {
   background-color: #062d62;
-  /* position: absolute; */
+  position: absolute;
   bottom: 0;
   width: 100%;
   display: flex;
@@ -176,9 +184,9 @@ body {
 .main-container {
   /* background-color: red; */
   height: 100%;
-  /* min-height: 100vh; will cover the 100% of viewport */
-  /* overflow: hidden;
-  display: block; */
+  min-height: 100vh; /*will cover the 100% of viewport*/
+  /* overflow: hidden; */
+  display: block;
   position: relative;
   padding-bottom: 150px; /* height of your footer */
   width: 100%;

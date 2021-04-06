@@ -149,11 +149,15 @@ export default {
 
 <style scoped>
 
+.inputField-container {
+    height: 100%;
+}
 .inputField {
     border: 2px solid #eb7f4d;
     background-color: antiquewhite;
     padding: 3%;
     margin: 3%;
+    height: 100%;
 }
 
 .heading {
