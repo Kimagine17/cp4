@@ -136,7 +136,9 @@ export default {
 
 
 <style scoped>
-
+.s-person {
+    height:100%;
+}
 .inputField {
     border: 2px solid #eb7f4d;
     background-color: antiquewhite;

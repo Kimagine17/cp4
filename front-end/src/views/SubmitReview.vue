@@ -148,9 +148,13 @@ export default {
 
 
 <style scoped>
+.s-review {
+    height:100%;
 
+}
 .inputField-container {
     height: 100%;
+
 }
 .inputField {
     border: 2px solid #eb7f4d;
@@ -168,16 +172,6 @@ export default {
 .heading h2 {
     margin-top: 0px;
     margin-left: 0px;
-}
-
-.circle {
-  border-radius: 50%;
-  width: 18px;
-  height: 18px;
-  padding: 8px;
-  background: #333;
-  color: #fff;
-  text-align: center;
 }
 
 /* Form */
