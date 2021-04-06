@@ -72,21 +72,21 @@
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
 }
-
-html {
-  height: 100vh;
-  width: 100%
-}
-
-.main-container {
+body {
+  height: 100%;
   width: 100%;
-  height: 100%;
+  /* border: 4px dashed red; */
 }
-.content
-{
+.main-container {
+  /* background-color: red; */
   height: 100%;
-  background-color: red;
-
+  min-height: 100vh; /*will cover the 100% of viewport*/
+  /* overflow: hidden; */
+  display: block;
+  position: relative;
+  padding-bottom: 150px; /* height of your footer */
+  width: 100%;
+  /* border: 5px dashed orange; */
 }
 .container {
   /* background-color: red; */
@@ -97,13 +97,27 @@ html {
   /* position: relative; */
   padding-bottom: 150px; /*height of your footer*/
   width: 100%;
+  /* border: 5px dashed yellow; */
+}
+#app {
+  height: 100%;
+  /* border: 5px dashed green; */
 }
 
-body {
+/*html {
+  height: 100vh;
+  width: 100%
+  border: 10px dashed black;
+} */
+
+.content
+{
   height: 100%;
-  width: 100%;
-  background-color: pink;
+  /* border: 5px dashed blue; */
 }
+
+
+
 
 .router-link-exact-active, .header-item a {
   text-decoration: none;
@@ -112,7 +126,7 @@ body {
 #menu {
   width: 100%;
   background-color: #062d62;
-  }
+}
 
 .header {
   text-align: center;
@@ -181,24 +195,7 @@ body {
     color: white;
 }
 
-.main-container {
-  /* background-color: red; */
-  height: 100%;
-  min-height: 100vh; /*will cover the 100% of viewport*/
-  /* overflow: hidden; */
-  display: block;
-  position: relative;
-  padding-bottom: 150px; /* height of your footer */
-  width: 100%;
-}
 
-/* #menu {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-column-gap: 5px;
-  grid-template-areas: "none brand side";
-  margin-bottom: 50px;
-} */
 
 @media only screen and (min-width: 750px) {
     .image{
