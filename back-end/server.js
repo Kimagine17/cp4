@@ -16,6 +16,15 @@ mongoose.connect('mongodb://localhost:27017/booksy', {
     useUnifiedTopology: true
 });
 
+// Configure multer so that it will upload to '../front-end/public/images'
+const multer = require('multer')
+const upload = multer({
+  dest: '../front-end/public/images/',
+  limits: {
+    fileSize: 10000000
+  }
+});
+
 //GENRE: Schema, Model, POST, GET, UPDATE, DELETE
 const genreSchema = new mongoose.Schema({
     name: String
@@ -94,6 +103,18 @@ const bookSchema = new mongoose.Schema({
 });
 //book model
 const Book = mongoose.model('Book', bookSchema);
+
+// Upload a photo. Uses the multer middleware for the upload and then returns
+// the path where the photo is stored in the file system.
+app.post('/api/photos', upload.single('photo'), async (req, res) => {
+    // Just a safety check
+    if (!req.file) {
+      return res.sendStatus(400);
+    }
+    res.send({
+      path: "/images/" + req.file.filename
+    });
+  });
 
 //Create a Book w/ Genre
 app.post('/api/genres/:genreID/books', async(req, res) => {
