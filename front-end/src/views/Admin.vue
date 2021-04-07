@@ -65,7 +65,7 @@
             </div>
             <div class="upload" v-if="addBook">
               <h2>{{addBook.bookTitle}}</h2>
-              <img :src="addBook.photoPath" />
+              <img :src="addBook.photoPath" width=100%/>
             </div>
           </div>
         </div>
