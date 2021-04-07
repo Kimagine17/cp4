@@ -173,8 +173,8 @@ export default {
         let r1 = await axios.post('/api/photos', formData);
         let r2 = await axios.post("/api/genres/"+genre._id+"/books", {
           genre: this.genre,
-          title: this.title,
-          description: this.description,
+          name: this.bookTitle,
+          description: this.bookDescription,
           photoPath: r1.data.photoPath,
         });
         this.addBook = r2.data;
