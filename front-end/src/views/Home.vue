@@ -1,11 +1,16 @@
 <template>
   <div class="home">
+    <div class="heading">
+      <h1> Welcome to Booksy! </h1> 
+      <h2> Browse below to find your favorite book. Check out the reviews, then head to our review
+        page to add one of your own! </h2> 
+    </div>
     <section class="image-gallery">
       <div class="image" v-for="book in books" :key="book.id">
-        <h2>{{book.name}}</h2>
-        <h2>{{book.genre}}</h2>
-        <h2>{{book.genre.name}}</h2>
-        <h2>{{book.description}}</h2>
+        <h2>Title: {{book.name}}</h2>
+        <!-- <h2>{{book.genre}}</h2> -->
+        <!-- <h2>{{book.genre.name}}</h2> -->
+        <h2>Description: {{book.description}}</h2>
         <img :src="book.photoPath" />
       </div>
     </section>
@@ -17,7 +22,6 @@
 import axios from 'axios';
 export default {
   name: 'Home',
-  data() {
     return {
      books: [],
     }
@@ -40,9 +44,31 @@ export default {
 </script>
 
 <style scoped>
-.image h2 {
-  font-style: italic;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
+body {
+  height: 100%;
+  width: 100%;
+  /* border: 4px dashed red; */
+}
+
+.main-container {
+  background-color: #eb7f4d;
+}
+
+.home {
+  /* border: 4px dashed rgb(170, 170, 175); */
+  height: 100vh;
+  margin: 0%;
+  padding: 3%;
+  background-color: #eb7f4d;
+  color:black;
+}
+
 /* Masonry */
 *,
 *:before,
@@ -56,6 +82,8 @@ export default {
   margin: 0 0 1.5em;
   display: inline-block;
   width: 100%;
+  padding: 10%;
+  background-color: antiquewhite;
 }
 .image img {
   width: 100%;

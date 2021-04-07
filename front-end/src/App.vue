@@ -79,7 +79,7 @@ body {
   /* overflow: hidden; */
   display: block;
   position: relative;
-  padding-bottom: 150px; /* height of your footer */
+  /* padding-bottom: 150px; height of your footer */
   width: 100%;
   /* border: 5px dashed orange; */
 }
@@ -90,7 +90,7 @@ body {
   /* overflow: hidden; */
   display: block;
   /* position: relative; */
-  padding-bottom: 150px; /*height of your footer*/
+  padding-bottom: 100px; 
   width: 100%;
   /* border: 5px dashed yellow; */
 }
@@ -176,6 +176,7 @@ body {
 }
 .footer {
     width: 100%;
+    height: 100px;
     justify-content: center; 
     /* display: flex; */
 }
