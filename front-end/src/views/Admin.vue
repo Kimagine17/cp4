@@ -2,56 +2,73 @@
 <div class = "admin">
   <h1>Admin Page</h1>
     <!-- Genre -->
-    <div class="heading">
-      <h2>Add a Genre</h2>
-    </div>
-    <div class="add">
-      <div class="form">
-        <input v-model="genreName" placeholder="Genre">
-        <p></p>
-        <button @click="uploadgenre">Upload</button>
-      </div>
-    </div>
-    <div class="heading">
-      <h2>Edit/Delete a Genre</h2>
-    </div>
-    <div class="edit">
-      <div class="form">
-        <input v-model="findGenre" placeholder="Search Genre">
-        <div class="genreSuggestions" v-if="genreSuggestions.length > 0">
-          <div class="genreSuggestion" v-for="s in genreSuggestions" :key="s.id" @click="selectGenre(s)">{{s.name}}
+    <div class="set">
+      <h2>Genres</h2>
+      <div class="inputField-container">
+        <div class="inputField">
+          <div class="heading">
+            <h2>Add a Genre</h2>
+          </div>
+          <div class="add">
+            <div class="form">
+              <input v-model="genreName" placeholder="Genre">
+              <p></p>
+              <button @click="uploadgenre">Upload</button>
+            </div>
           </div>
         </div>
       </div>
-      <div class="upload" v-if="findGenreItem">
-        <input v-model="findGenreItem.name">
-        <p></p>
-      </div>
-      <div class="actions" v-if="findGenreItem">
-        <button @click="deleteGenre(findGenreItem)">Delete</button>
-        <button @click="editGenre(findGenreItem)">Edit</button>
+
+      <div class="inputField-container">
+        <div class="inputField">
+          <div class="heading">
+            <h2>Edit/Delete a Genre</h2>
+          </div>
+          <div class="edit">
+            <div class="form">
+              <p>Choose a genre:</p>
+              <multiselect label="name" v-model="findGenreItem" :options="genres"></multiselect>
+              <p></p>
+            </div>
+            <div class="upload" v-if="findGenreItem">
+              <input v-model="findGenreItem.name">
+              <p></p>
+            </div>
+            <div class="actions" v-if="findGenreItem">
+              <button @click="deleteGenre(findGenreItem)">Delete</button>
+              <button @click="editGenre(findGenreItem)">Edit</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     
-    <div class="heading">
-      <h2>Add a Book</h2>
-    </div>
-    <div class="add">
-      <div class="form">
-        <p>Choose a genre:</p>
-        <multiselect label="name" v-model="genre" :options="genres"></multiselect>
-        <p></p>
-        <p>Book Title:</p>
-        <input v-model="bookTitle" placeholder="Title">
-        <p>Write a short description:</p>
-        <input v-model="bookDescription" placeholder="Description">
-        <p></p>
-        <input type="file" name="photo" @change="fileChanged">
-        <button @click="uploadbook(genre)">Upload Book Cover</button>
-      </div>
-      <div class="upload" v-if="addBook">
-        <h2>{{addBook.bookTitle}}</h2>
-        <img :src="addBook.photoPath" />
+    <div class="set">
+      <h2>Books</h2>
+      <div class="inputField-container">
+        <div class="inputField">
+          <div class="heading">
+            <h2>Add a Book</h2>
+          </div>
+          <div class="add">
+            <div class="form">
+              <p>Choose a genre:</p>
+              <multiselect label="name" v-model="genre" :options="genres"></multiselect>
+              <p></p>
+              <p>Book Title:</p>
+              <input v-model="bookTitle" placeholder="Title">
+              <p>Write a short description:</p>
+              <input v-model="bookDescription" placeholder="Description">
+              <p></p>
+              <input type="file" name="photo" @change="fileChanged">
+              <button @click="uploadbook(genre)">Upload Book Cover</button>
+            </div>
+            <div class="upload" v-if="addBook">
+              <h2>{{addBook.bookTitle}}</h2>
+              <img :src="addBook.photoPath" />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <!--
@@ -231,23 +248,29 @@ export default {
     width: 90%;
     margin: 20px auto;
 }
-.image h2 {
-  font-style: italic;
-  font-size: 1em;
+.set {
+  background-color:#cfe2fd;
+  border: 2px solid #062d62;
+  padding: 15px;
+  margin: 5%;
 }
+.inputField {
+    border: 2px solid #eb7f4d;
+    background-color: #faebd7;
+    padding: 3%;
+    margin: 3%;
+}
+
 .heading {
-  display: flex;
-  margin-bottom: 20px;
-  margin-top: 20px;
+    margin-bottom: 20px;
+    margin-top: 0px;
 }
+
 .heading h2 {
-  margin-top: 8px;
-  margin-left: 10px;
+    margin-top: 0px;
+    margin-left: 0px;
 }
-.add,
-.edit {
-  display: flex;
-}
+
 .circle {
   border-radius: 50%;
   width: 18px;
@@ -255,8 +278,9 @@ export default {
   padding: 8px;
   background: #333;
   color: #fff;
-  text-align: center
+  text-align: center;
 }
+
 /* Form */
 input,
 textarea,
@@ -265,26 +289,56 @@ button {
   font-family: 'Montserrat', sans-serif;
   font-size: 1em;
 }
+
 .form {
-  margin-right: 50px;
+    margin-right: 50px;
 }
-/* Uploaded images */
-.upload h2 {
-  margin: 0px;
+.actions {
+    padding: 3px;
+    margin: 0px;
 }
-.upload img {
-  max-width: 300px;
+.action {
+    margin: 15px;
 }
+.upload p, .actions p{
+    margin: 0px;
+    margin-bottom: 5px;
+}
+
 /* Suggestions */
-.genreSuggestions {
-  width: 200px;
+.suggestions {
+  width: 100%;
   border: 1px solid #ccc;
+  margin-bottom: 15px;
+  padding: 5px;
+  padding-bottom: 0px;
+  line-height: 15px;
 }
-.genreSuggestion {
+
+.suggestion {
   min-height: 20px;
 }
-.genreSuggestion:hover {
-  background-color: #5BDEFF;
-  color: #fff;
+
+.suggestion:hover {
+  background-color: #eb7f4d;
+  color: antiquewhite;
+}
+/* Tablet Styles */
+@media only screen and (min-width: 500px) and (max-width: 999px) {  
+    .add,
+    .edit {
+        display: flex;
+    }
+}
+
+/* Desktop Screen */
+@media only screen and (min-width: 1000px) {
+    .inputField-container {
+        display: flex;
+    }
+    .add,
+    .edit {
+        display: flex;
+    }
 }
 </style>
