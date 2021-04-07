@@ -7,7 +7,7 @@
       <div class="inputField-container">
         <div class="inputField">
           <div class="heading">
-            <h2>Add a Genre</h2>
+            <h3>Add a Genre</h3>
           </div>
           <div class="add">
             <div class="form">
@@ -22,7 +22,7 @@
       <div class="inputField-container">
         <div class="inputField">
           <div class="heading">
-            <h2>Edit/Delete a Genre</h2>
+            <h3>Edit/Delete a Genre</h3>
           </div>
           <div class="edit">
             <div class="form">
@@ -48,7 +48,7 @@
       <div class="inputField-container">
         <div class="inputField">
           <div class="heading">
-            <h2>Add a Book</h2>
+            <h3>Add a Book</h3>
           </div>
           <div class="add">
             <div class="form">
@@ -70,32 +70,32 @@
           </div>
         </div>
       </div>
-    </div>
-    <!--
-    <div class="heading">
-      <div class="circle">2</div>
-      <h2>Edit/Delete a Book</h2>
-    </div>
-    <div class="edit">
-      <div class="form">
-        <input v-model="findTitle" placeholder="Search">
-        <div class="suggestions" v-if="suggestions.length > 0">
-          <div class="suggestion" v-for="s in suggestions" :key="s.id" @click="selectItem(s)">{{s.title}}
+      <div class="inputField-container">
+        <div class="inputField">
+          <div class="heading">
+            <h3>Edit/Delete a Book</h3>
+          </div>
+          <div class="edit">
+            <div class="form">
+              <p>Find book to edit:</p>
+              <multiselect label="name" v-model="findBookItem" :options="books"></multiselect>
+              <p></p>
+            </div>
+            <div class="upload" v-if="findBookItem">
+              <input v-model="findBookItem.name">
+              <p></p>
+              <input v-model="findBookItem.description">
+              <p></p>
+              <img :src="findBookItem.path" />
+            </div>
+            <div class="actions" v-if="findBookItem">
+              <button @click="deleteBook(findBookItem)">Delete</button>
+              <button @click="editBook(findBookItem)">Edit</button>
+            </div>
           </div>
         </div>
       </div>
-      <div class="upload" v-if="findItem">
-        <input v-model="findItem.title">
-        <p></p>
-        <input v-model="findItem.description">
-        <p></p>
-        <img :src="findItem.path" />
-      </div>
-      <div class="actions" v-if="findItem">
-        <button @click="deleteItem(findItem)">Delete</button>
-        <button @click="editItem(findItem)">Edit</button>
-      </div>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -109,10 +109,13 @@ export default {
     return {
       genre: null,
       genres: [],
+      books: [],
       genreName: "",
       findGenre: "",
       findGenreItem: null,
       bookTitle: "",
+      findBook: "",
+      findBookItem: null,
       bookDescription: "",
       file: null,
       addGenre: null,
@@ -130,6 +133,7 @@ export default {
   created() {
     // this.getItems();
     this.getGenres();
+    this.getBooks();
   },
   methods: {
     async uploadgenre() {
@@ -151,6 +155,15 @@ export default {
       } catch (error) {
           console.log(error);
       }
+    },
+    async getBooks() {
+      try {
+          let response = await axios.get("/api/books");
+          this.books = response.data;
+          return true;
+      } catch (error) {
+          console.log(error);
+      }
     }, 
     selectGenre(item) {
       this.findGenre = "";
@@ -158,7 +171,6 @@ export default {
     },
     async deleteGenre(item) {
       try {
-        console.log(item);
         await axios.delete("/api/genres/" + item._id);
         this.findGenre = "";
         this.findGenreItem = null;
@@ -174,6 +186,30 @@ export default {
           name: this.findGenreItem.name,
         });
         this.findGenreItem = null;
+        this.getItems();
+        return true;
+      } catch (error) {
+        //console.log(error);
+      }
+    },
+    async deleteBook(item) {
+      try {
+        await axios.delete("/api/books/" + item._id);
+        this.findBook = "";
+        this.findBookItem = null;
+        this.getGenres();
+        return true;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async editBook(item) {
+      try {
+        await axios.put("/api/books/" + item._id, {
+          name: this.findBookItem.name,
+          description: this.findBookItem.description,
+        });
+        this.findBookItem = null;
         this.getItems();
         return true;
       } catch (error) {
@@ -270,7 +306,9 @@ export default {
     margin-top: 0px;
     margin-left: 0px;
 }
-
+p {
+  padding: 2% 0%;
+}
 .circle {
   border-radius: 50%;
   width: 18px;
