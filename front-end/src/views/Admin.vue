@@ -33,24 +33,28 @@
       </div>
     </div>
     
-    <!-- <div class="heading">
-      <div class="circle">1</div>
+    <div class="heading">
       <h2>Add a Book</h2>
     </div>
     <div class="add">
       <div class="form">
-        <input v-model="title" placeholder="Title">
+        <p>Choose a genre:</p>
+        <multiselect label="name" v-model="genre" :options="genres"></multiselect>
         <p></p>
-        <input v-model="description" placeholder="Description">
+        <p>Book Title:</p>
+        <input v-model="bookTitle" placeholder="Title">
+        <p>Write a short description:</p>
+        <input v-model="bookDescription" placeholder="Description">
         <p></p>
         <input type="file" name="photo" @change="fileChanged">
-        <button @click="uploadbook">Upload</button>
+        <button @click="uploadbook(genre)">Upload Book Cover</button>
       </div>
-      <div class="upload" v-if="addItem">
-        <h2>{{addItem.title}}</h2>
-        <img :src="addItem.path" />
+      <div class="upload" v-if="addBook">
+        <h2>{{addBook.bookTitle}}</h2>
+        <img :src="addBook.photoPath" />
       </div>
     </div>
+    <!--
     <div class="heading">
       <div class="circle">2</div>
       <h2>Edit/Delete a Book</h2>
@@ -80,19 +84,22 @@
 
 <script>
 import axios from 'axios';
+import Multiselect from 'vue-multiselect';
 export default {
+  components: { Multiselect },
   name: 'Admin',
   data() {
     return {
+      genre: null,
+      genres: [],
       genreName: "",
       findGenre: "",
       findGenreItem: null,
-      title: "",
-      description: "",
+      bookTitle: "",
+      bookDescription: "",
       file: null,
       addGenre: null,
-      addItem: null,
-      genres: [],
+      addBook: null,
       findName: "",
       findItem: null,
     }
@@ -156,27 +163,28 @@ export default {
         //console.log(error);
       }
     },
+    fileChanged(event) {
+      this.file = event.target.files[0]
+    },
+    async uploadbook(genre) {
+      try {
+        const formData = new FormData();
+        formData.append('photo', this.file, this.file.name, this.file.description)
+        let r1 = await axios.post('/api/photos', formData);
+        let r2 = await axios.post("/api/genres/"+genre._id+"/books", {
+          genre: this.genre,
+          title: this.title,
+          description: this.description,
+          photoPath: r1.data.photoPath,
+        });
+        this.addBook = r2.data;
+      } catch (error) {
+        //console.log("Problem");
+      }
+    },
   }
 }
-//     fileChanged(event) {
-//       this.file = event.target.files[0]
-//     },
-//     async uploadbook() {
-//       try {
-//         const formData = new FormData();
-//         formData.append('photo', this.file, this.file.name, this.file.description)
-//         let r1 = await axios.post('/api/photos', formData);
-//         let r2 = await axios.post('/api/genres/:genreID/books', {
-//           genre: this.genre,
-//           title: this.title,
-//           description: this.description,
-//           path: r1.data.path,
-//         });
-//         this.addItem = r2.data;
-//       } catch (error) {
-//         //console.log("Problem");
-//       }
-//     },
+
 //     async getItems() {
 //       try {
 //         let response = await axios.get("/api/books");
