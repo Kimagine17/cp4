@@ -144,6 +144,18 @@ export default {
         console.log(error);
       }
     },
+    async editGenre(item) {
+      try {
+        await axios.put("/api/genres/" + item._id, {
+          name: this.findGenreItem.name,
+        });
+        this.findGenreItem = null;
+        this.getItems();
+        return true;
+      } catch (error) {
+        //console.log(error);
+      }
+    },
   }
 }
 //     fileChanged(event) {
