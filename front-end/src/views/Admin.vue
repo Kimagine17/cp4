@@ -7,34 +7,31 @@
     </div>
     <div class="add">
       <div class="form">
-        <input v-model="name" placeholder="Genre">
+        <input v-model="genreName" placeholder="Genre">
         <p></p>
         <button @click="uploadgenre">Upload</button>
       </div>
     </div>
-    <!-- <div class="heading">
+    <div class="heading">
       <h2>Edit/Delete a Genre</h2>
     </div>
     <div class="edit">
       <div class="form">
-        <input v-model="findTitle" placeholder="Search">
-        <div class="suggestions" v-if="suggestions.length > 0">
-          <div class="suggestion" v-for="s in suggestions" :key="s.id" @click="selectItem(s)">{{s.title}}
+        <input v-model="findGenre" placeholder="Search Genre">
+        <div class="genreSuggestions" v-if="genreSuggestions.length > 0">
+          <div class="genreSuggestion" v-for="s in genreSuggestions" :key="s.id" @click="selectGenre(s)">{{s.name}}
           </div>
         </div>
       </div>
-      <div class="upload" v-if="findItem">
-        <input v-model="findItem.title">
+      <div class="upload" v-if="findGenreItem">
+        <input v-model="findGenreItem.name">
         <p></p>
-        <input v-model="findItem.description">
-        <p></p>
-        <img :src="findItem.path" />
       </div>
-      <div class="actions" v-if="findItem">
-        <button @click="deleteItem(findItem)">Delete</button>
-        <button @click="editItem(findItem)">Edit</button>
+      <div class="actions" v-if="findGenreItem">
+        <button @click="deleteGenre(findGenreItem)">Delete</button>
+        <button @click="editGenre(findGenreItem)">Edit</button>
       </div>
-    </div> -->
+    </div>
     
     <!-- <div class="heading">
       <div class="circle">1</div>
@@ -87,36 +84,62 @@ export default {
   name: 'Admin',
   data() {
     return {
-      name: "",
+      genreName: "",
+      findGenre: "",
+      findGenreItem: null,
       title: "",
       description: "",
       file: null,
       addGenre: null,
       addItem: null,
       genres: [],
-      items: [],
-      findGenre: null,
-      findTitle: "",
+      findName: "",
       findItem: null,
     }
   },
-  // computed: {
-  //   suggestions() {
-  //     let items = this.items.filter(item => item.title.toLowerCase().startsWith(this.findTitle.toLowerCase()));
-  //     return items.sort((a, b) => a.title > b.title);
-  //   }
-  // },
-  // created() {
-  //   this.getItems();
-  // },
+  computed: {
+    genreSuggestions() {
+      let genres = this.genres.filter(genre => genre.name.toLowerCase().startsWith(this.findGenre.toLowerCase()));
+      return genres.sort((a, b) => a.name > b.name);
+    }
+  },
+  created() {
+    // this.getItems();
+    this.getGenres();
+  },
   methods: {
     async uploadgenre() {
       try {
         let r1 = await axios.post('/api/genres', {
-          name: this.name,
+          name: this.genreName,
         });
         this.addItem = r1.data;
-        this.name = "";
+        this.genreName = "";
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getGenres() {
+      try {
+          let response = await axios.get("/api/genres");
+          this.genres = response.data;
+          return true;
+      } catch (error) {
+          console.log(error);
+      }
+    }, 
+    selectGenre(item) {
+      this.findGenre = "";
+      this.findGenreItem = item;
+    },
+    async deleteGenre(item) {
+      try {
+        console.log(item);
+        await axios.delete("/api/genres/" + item._id);
+        this.findGenre = "";
+        this.findGenreItem = null;
+        this.getGenres();
+        return true;
       } catch (error) {
         console.log(error);
       }
@@ -233,14 +256,14 @@ button {
   max-width: 300px;
 }
 /* Suggestions */
-.suggestions {
+.genreSuggestions {
   width: 200px;
   border: 1px solid #ccc;
 }
-.suggestion {
+.genreSuggestion {
   min-height: 20px;
 }
-.suggestion:hover {
+.genreSuggestion:hover {
   background-color: #5BDEFF;
   color: #fff;
 }
